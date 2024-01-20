@@ -8,7 +8,7 @@ const Header = () => {
           <div className="flex justify-start items-center">
             <a href="/" className="flex items-center justify-between mr-4">
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                ProClient Manager
+                Task Manager
               </span>
             </a>
           </div>

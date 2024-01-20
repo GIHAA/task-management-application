@@ -1,5 +1,4 @@
 import axios from "axios";
-;
 
 const  BE_URL = "https://proclient.azurewebsites.net/api/v1"
 

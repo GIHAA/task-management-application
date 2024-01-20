@@ -8,7 +8,7 @@ export const PdfGenerator = ( total: number ,  data : any) => {
   toast.info("Generating Report");
   const name = "Customer Report";
   const pdf_title = "Customer Report";
-  const pdf_email = "info@proclient.com";
+  const pdf_email = "info@taskmanager.com";
   const pdf_phone = "+94 11 234 5678";
   const pdf_address = " No 221/B, Peradeniya Road, Kandy";
 
@@ -28,7 +28,7 @@ export const PdfGenerator = ( total: number ,  data : any) => {
   doc.setFontSize(16);
   doc.setFont("helvetica", "bold");
   doc.setTextColor("#000000");
-  doc.text("ProClient Manager", 30, 70);
+  doc.text("Task Manager", 30, 70);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   doc.setTextColor("#999999");
