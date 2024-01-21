@@ -9,9 +9,7 @@ import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";
 import TaskService from "@/api/taskService";
-
-
-
+import {toast} from 'react-toastify';
 
 export default function Home() {
     const [displayCreateFrom, setDisplayCreateFrom] = useState(false)
@@ -28,8 +26,9 @@ export default function Home() {
     const [totalElements, setTotalElements] = useState(0)
     const [searchType, setSearchType] = useState("NAME" as string)
 
+    const getUser = localStorage.getItem("user");
+    const user = JSON.parse(getUser);
 
-  
     const toggleDropdown = (itemId: any) => {
       setShowDropdown(!showDropdown)
       setSelectedItemId(itemId)
@@ -68,7 +67,6 @@ export default function Home() {
         toast.error("Report genaration failed")
       })
       
-    
     }
   
     const handleDelete = async (cus: any) => {
@@ -238,7 +236,7 @@ export default function Home() {
                           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                               <th scope="col" className="px-4 py-3">
-                                {user.firstname}
+                                id
                               </th>
                               <th scope="col" className="px-4 py-3">
                                 Full Name

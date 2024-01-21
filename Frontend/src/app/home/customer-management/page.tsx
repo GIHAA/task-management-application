@@ -7,6 +7,7 @@ import customerService from "@/api/cusService"
 import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";
+import {toast} from 'react-toastify';
 
 export default function Home() {
     const [displayCreateFrom, setDisplayCreateFrom] = useState(false)
@@ -22,6 +23,9 @@ export default function Home() {
     const [totalPages, setTotalPages] = useState(0)
     const [totalElements, setTotalElements] = useState(0)
     const [searchType, setSearchType] = useState("NAME" as string)
+
+    const getUser = localStorage.getItem("user");
+    const user = JSON.parse(getUser);
   
     const toggleDropdown = (itemId: any) => {
       setShowDropdown(!showDropdown)
@@ -32,7 +36,7 @@ export default function Home() {
       setLoading(true)
       try {
   
-        const response = await customerService.getAllCustomers(currentPage-1, pageSize)
+        const response = await customerService.getAllCustomers(currentPage-1, pageSize , user.token)
   
         if (response.status === 200) {
           const responseData = response.data.results[0]

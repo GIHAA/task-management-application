@@ -12,6 +12,9 @@ import { useEffect, useState } from "react";
 
 
 export default function Home() {
+
+  const router = useRouter()
+
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
 
@@ -31,13 +34,20 @@ export default function Home() {
         return;
       }
 
-      // const response = await AuthService.signIn({
-      //   email: email.value,
-      //   password: password.value,
-      // });
-      dispatch(login({ email: email.value , password: password.value}))
+      const response = await AuthService.signIn({
+        email: email.value,
+        password: password.value,
+      });
 
-       
+      if (response.status === 200) {
+        const user = response.data.results[0];
+        console.log(user)
+
+        localStorage.setItem("user" , JSON.stringify(user))
+
+        router.push('/home')
+      }
+
     } catch (error : any) {
       const message =
       (error.response &&
@@ -51,25 +61,25 @@ export default function Home() {
     }
   };
 
-  const router = useRouter()
-  const dispatch = useDispatch();
+  // const router = useRouter()
+  // const dispatch = useDispatch();
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  // const { user, isLoading, isError, isSuccess, message } = useSelector(
+  //   (state) => state.auth
+  // );
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-    }
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(message);
+  //   }
 
-    if (isSuccess || user) {
-      //navigate("/");
-      router.push('/home', { scroll: false })
-    }
+  //   if (isSuccess || user) {
+  //     //navigate("/");
+  //     router.push('/home', { scroll: false })
+  //   }
 
-    dispatch(reset());
-  }, [user, isError, isSuccess, message , router , dispatch]);
+  //   dispatch(reset());
+  // }, [user, isError, isSuccess, message , router , dispatch]);
 
 
   return (
