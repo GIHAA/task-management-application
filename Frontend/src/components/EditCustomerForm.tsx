@@ -249,7 +249,7 @@ const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
                   <DatePicker
                     id="dateOfBirth"
                     selected={dob.value ? new Date(dob.value) : new Date()}
-                    onChange={(date) => setdob({ ...dob, value: date })}
+                    onChange={(date : any) => setdob({ ...dob, value: date })}
                     className={`bg-gray-50 border ${
                       dob.error ? "outline-red-500 outline outline-1" : ""
                     } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[235px] p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
