@@ -2,13 +2,12 @@
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Placeholder from "@/components/PlaceHolder";
-import CreateCustomerForm from "@/components/CreateUserForm";
-import EditCustomerForm from "@/components/EditUserForm";
+
 import Sidebar from "@/components/Sidebar";
 import { PdfGenerator } from "@/utils/pdfGenerator";
 import { toast } from "sonner";
 import TaskService from "@/api/taskService";
-import EditTaskForm from "@/components/EditUserForm";
+import EditTaskForm from "@/components/EditTaskForm";
 import CreateTaskForm from "@/components/CreateTaskForm";
 // import {toast, ToastContent} from 'react-toastify';
 

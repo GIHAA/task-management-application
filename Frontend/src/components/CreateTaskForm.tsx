@@ -165,9 +165,9 @@ const CreateTaskForm = ({ setDisplayCreateFrom, fetchData }: any) => {
                     <option value="CANCELLED">Cancelled</option>
                   </select>
                 </div>
-                </div>
-              <div className="col-span-2 mb-7 mt-5 items-center border-gray-200 border-t dark:border-gray-700 justify-between"></div>
+              </div>
 
+              <div className="col-span-2 mb-7 mt-5 items-center border-gray-200 border-t dark:border-gray-700 justify-between"></div>
               <div className="mt-2">
                 <button
                   className="inline-flex items-center px-5 py-2.5  text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-primary-900 hover:bg-blue-800"
@@ -187,6 +187,7 @@ const CreateTaskForm = ({ setDisplayCreateFrom, fetchData }: any) => {
                 </button>
               </div>
             </div>
+          
           </div>
         </section>
       </div>

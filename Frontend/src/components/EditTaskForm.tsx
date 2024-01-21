@@ -1,8 +1,10 @@
+import TaskService from "@/api/taskService"
 import React, { useState, useEffect } from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import PhoneInput from "react-phone-input-2"
 import "react-phone-input-2/lib/style.css"
+import { toast } from "sonner"
 
 import UserService from "../api/userService"
 import { emailValidator } from "../helpers/emailValidator"
@@ -10,12 +12,10 @@ import { inputValidator } from "../helpers/inputValidator"
 import { phoneNumebrValidator } from "../helpers/phoneNumebrValidator"
 
 const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
-  const [firstName, setfirstName] = useState({ value: "", error: "" })
-  const [lastName, setlastName] = useState({ value: "", error: "" })
-  const [email, setemail] = useState({ value: "", error: "" })
-  const [phoneNumber, setphoneNumber] = useState({ value: "", error: "" })
-  const [gender, setGender] = useState({ value: "", error: "" })
-  const [dob, setdob] = useState({ value: "", error: "" })
+  const [name, setName] = useState({ value: "", error: "" });
+  const [description, setDescription] = useState({ value: "", error: "" });
+  const [priority, setPriority] = useState({ value: "", error: "" });
+  const [status, setStatus] = useState({ value: "", error: "" });
 
   const getUser = typeof window !== 'undefined' ? localStorage.getItem("user") : null;
   const user = getUser ? JSON.parse(getUser) : null;
@@ -27,38 +27,31 @@ const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
       id: target.id,
     }
 
-    const firstNameError = inputValidator( "First Name" , firstName.value)
-    const lastNameError = inputValidator( "Last Name" , lastName.value)
-    const dobError = inputValidator( "Dob", dob.value)
-    const emailError = emailValidator( email.value)
-    const phoneNumberError = inputValidator( "Phone Number ", phoneNumber.value)
-    const genderError = inputValidator( "Gender" , gender.value)
+    const NameError = inputValidator("First Name", name.value);
+    const DescriptionError = inputValidator("Last Name", description.value);
+    const PriorityError = inputValidator("Priority", priority.value);
+    const StatusError = inputValidator("Status", status.value);
+
 
     if (
-      emailError ||
-      firstNameError ||
-      lastNameError ||
-      phoneNumber.error ||
-      phoneNumberError ||
-      dobError ||
-      genderError
+      NameError ||
+      DescriptionError ||
+      PriorityError ||
+      StatusError
     ) {
-      setfirstName({ ...firstName, error: firstNameError })
-      setlastName({ ...lastName, error: lastNameError })
-      setemail({ ...email, error: emailError })
-      setdob({ ...dob, error: dobError })
-      setphoneNumber({ ...phoneNumber, error: phoneNumberError })
-      setGender({ ...gender, error: genderError })
+      setName({ ...name, error: NameError });
+      setDescription({ ...description, error: DescriptionError });
+      setPriority({ ...priority, error: PriorityError });
+      setStatus({ ...status, error: StatusError });
+    
       return
     }
 
     const fieldsToCheck = [
-      { input: firstName, targetKey: "firstName" },
-      { input: lastName, targetKey: "lastName" },
-      { input: email, targetKey: "email" },
-      { input: phoneNumber, targetKey: "phoneNumber" },
-      { input: gender, targetKey: "gender" },
-      { input: dob, targetKey: "dob" },
+      { input: name, targetKey: "name" },
+      { input: description, targetKey: "description" },
+      { input: priority, targetKey: "priority" },
+      { input: status, targetKey: "status" }
     ]
 
     fieldsToCheck.forEach(({ input, targetKey }) => {
@@ -69,35 +62,27 @@ const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
 
     if (Object.keys(updatedFields).length > 1) {
       try {
-        const res = await UserService.updateUser(updatedFields , user.token)
-        //toast.success("User successfully updated")
+        const res = await TaskService.updateTask(updatedFields , user.token)
+        toast.success("User successfully updated")
         fetchData()
         setDisplayUpdateForm(false)
       } catch (err) {
         setDisplayUpdateForm(false)
-        //toast.error(`Error: ${err}`)
+        toast.error(`Error: ${err}`)
       }
     } else {
       setDisplayUpdateForm(false)
-      //toast.info("No changes were made.")
+      toast.info("No changes were made.")
     }
   }
 
-  const handleOnPhoneNumberChange = (
-    value: string,
-    country: { countryCode: string },
-  ) => {
-    const PhoneValidationError = phoneNumebrValidator(value, country)
-    setphoneNumber({ value, error: PhoneValidationError })
-  }
 
   useEffect(() => {
-    setfirstName({ ...firstName, value: target.firstName })
-    setlastName({ ...lastName, value: target.lastName })
-    setemail({ ...email, value: target.email })
-    setphoneNumber({ ...phoneNumber, value: target.phoneNumber })
-    setGender({ ...gender, value: target.gender })
-    setdob({ ...dob, value: target.dob })
+
+    setName({ ...name, value: target.name })
+    setDescription({ ...description, value: target.description })
+    setPriority({ ...priority, value: target.priority })
+    setStatus({ ...status, value: target.status })
   }, [])
 
   return (
@@ -106,20 +91,21 @@ const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
         <section className="bg-white dark:bg-gray-900 rounded-xl mt-[50px]">
           <div className="py-8 px-4 mx-auto max-w-2xl lg:py-5 ">
             <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-              Edit User {target.id}
+              Edit Task {target.id}
             </h2>
+            
             <div>
-              <div className="grid gap-4 sm:grid-cols-2  grid-cols-1 sm:gap-5">
-                <div className="md:col-span-1 col-span-2">
+            <div className="grid gap-4 grid-cols-2 sm:gap-5">
+                <div className="w-[400px] col-span-2">
                   <label
                     htmlFor="itemName"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    First Name{" "}
-                    {firstName.error ? (
+                    Name{" "}
+                    {name.error ? (
                       <span className="text-red-500 text-[13px]">
                         {" "}
-                        First name {firstName.error}
+                        {name.error}
                       </span>
                     ) : (
                       <></>
@@ -127,29 +113,29 @@ const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
                   </label>
                   <input
                     type="text"
-                    name="itemName"
-                    id="itemName"
-                    value={firstName.value}
+                    name="name"
+                    id="name"
+                    value={name.value}
                     className={`bg-gray-50 border ${
-                      firstName.error ? "outline-red-500 outline outline-1" : ""
+                      name.error ? "outline-red-500 outline outline-1" : ""
                     } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
                     placeholder="Type item name"
                     onChange={(e) =>
-                      setfirstName({ ...firstName, value: e.target.value })
+                      setName({ ...name, value: e.target.value })
                     }
                   />
                 </div>
 
-                <div className="md:col-span-1 col-span-2">
+                <div className="col-span-2">
                   <label
                     htmlFor="itemName"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Last Name{" "}
-                    {lastName.error ? (
+                    Description{" "}
+                    {description.error ? (
                       <span className="text-red-500 text-[13px]">
                         {" "}
-                        Last name {lastName.error}
+                        {description.error}
                       </span>
                     ) : (
                       <></>
@@ -157,141 +143,65 @@ const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
                   </label>
                   <input
                     type="text"
-                    name="itemName"
-                    id="itemName"
-                    value={lastName.value}
-                    className={`bg-gray-50 border ${
-                      lastName.error ? "outline-red-500 outline outline-1" : ""
+                    name="description"
+                    id="description"
+                    value={description.value}
+                    className={`bg-gray-50 border h-[150px] ${
+                      description.error ? "outline-red-500 outline outline-1" : ""
                     } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
                     placeholder="Type item name"
                     onChange={(e) =>
-                      setlastName({ ...lastName, value: e.target.value })
+                      setDescription({ ...description, value: e.target.value })
                     }
                   />
                 </div>
+             
 
-                <div className="md:col-span-2 col-span-2">
-                  <label
-                    htmlFor="itemName"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Email{" "}
-                    {email.error ? (
-                      <span className="text-red-500 text-[13px]">
-                        {" "}
-                        {email.error}
-                      </span>
-                    ) : (
-                      <></>
-                    )}
-                  </label>
-                  <input
-                    type="text"
-                    name="itemName"
-                    id="itemName"
-                    value={email.value}
-                    className={`bg-gray-50 border ${
-                      email.error ? "outline-red-500 outline outline-1" : ""
-                    } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
-                    placeholder="Type item name"
-                    onChange={(e) =>
-                      setemail({ ...email, value: e.target.value })
-                    }
-                  />
-                </div>
 
-                <div className="col-span-2 items-center border-gray-200 border-t dark:border-gray-700 justify-between"></div>
-
-                <div className="w-full col-span-2 md:col-span-1 ">
-                  <label
-                    htmlFor="phoneNumber"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Phone Number{" "}
-                    {phoneNumber.error ? (
-                      <span className="text-red-500 text-[13px]">
-                        {" "}
-                        {phoneNumber.error}
-                      </span>
-                    ) : (
-                      <></>
-                    )}
-                  </label>
-                  <div
-                    className={`flex items-center ${
-                      phoneNumber.error
-                        ? "outline-red-500 outline outline-1"
-                        : ""
-                    } bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-primary-500 dark:focus:border-primary-500`}
-                  >
-                    <PhoneInput
-                      placeholder="Enter phone number"
-                      value={phoneNumber.value}
-                      inputStyle={{ width: "220px" }}
-                      onChange={handleOnPhoneNumberChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="w-full col-span-2 md:col-span-1 ">
-                  <label
-                    htmlFor="dateOfBirth"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Date of birth{" "}
-                    {dob.error ? (
-                      <span className="text-red-500 text-[13px]">
-                        Enter a date of birth
-                      </span>
-                    ) : (
-                      <></>
-                    )}
-                  </label>
-                  <DatePicker
-                    id="dateOfBirth"
-                    selected={dob.value ? new Date(dob.value) : new Date()}
-                    onChange={(date : any) => setdob({ ...dob, value: date })}
-                    className={`bg-gray-50 border ${
-                      dob.error ? "outline-red-500 outline outline-1" : ""
-                    } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[235px] p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
-                    placeholderText="Select date of birth"
-                  />
-                </div>
-
-                <div className="w-full">
+              <div className="col-span-1" >
                   <label
                     htmlFor="tags"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Gender{" "}
-                    {gender.error ? (
-                      <span className="text-red-500 text-[13px]">
-                        {" "}
-                        Gender {gender.error}
-                      </span>
-                    ) : (
-                      <></>
-                    )}
+                    Priority  {priority.error ? (<span className="text-red-500 text-[13px]">  {priority.error}</span>) : (<></>)}
                   </label>
                   <select
-                    id="tags"
-                    name="tags"
-                    value={gender.value}
+                    id="priority"
+                    name="priority"
+                    value={priority.value}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) =>
-                      setGender({ ...gender, value: e.target.value })
-                    }
+                    onChange={(e) => setPriority({ ...priority, value: e.target.value })}
                   >
                     <option value="">-</option>
-                    <option value="MALE">Male</option>
-                    <option value="FEMALE">Female</option>
-                    <option value="NON_BINARY">Non-binary</option>
-                    <option value="PREFER_NOT_TO_SAY">Prefer not to say</option>
-                    <option value="OTHER">Other</option>
+                    <option value="HIGH">High</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="LOW">Low</option>
+                  </select>
+                </div>
+
+
+                <div className="col-span-1">
+                  <label
+                    htmlFor="tags"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Status  {status.error ? (<span className="text-red-500 text-[13px]">  {status.error}</span>) : (<></>)}
+                  </label>
+                  <select
+                    id="status"
+                    name="status"
+                    value={status.value}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    onChange={(e) => setStatus({ ...status, value: e.target.value })}
+                  >
+                    <option value="">-</option>
+                    <option value="TODO">To do</option>
+                    <option value="IN_PROGRESS">In progress</option>
+                    <option value="DONE">Done</option>
+                    <option value="CANCELLED">Cancelled</option>
                   </select>
                 </div>
               </div>
-
               <div className="col-span-2 mb-7 mt-5 items-center border-gray-200 border-t dark:border-gray-700 justify-between"></div>
 
               <div className="mt-2">
@@ -313,6 +223,8 @@ const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
                 </button>
               </div>
             </div>
+          
+          
           </div>
         </section>
       </div>
