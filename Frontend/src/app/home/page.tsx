@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react"
-import { toast, ToastContent } from "react-toastify"
 
 import Header from "@/components/Header"
 import Placeholder from "@/components/PlaceHolder"
@@ -10,8 +9,8 @@ import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";
 import TaskService from "@/api/taskService";
-import { useSelector } from "react-redux";
-import { logout } from "@/lib/features/auth/authSlice";
+
+
 
 
 export default function Home() {
@@ -29,7 +28,7 @@ export default function Home() {
     const [totalElements, setTotalElements] = useState(0)
     const [searchType, setSearchType] = useState("NAME" as string)
 
-    const { user } = useSelector((state) => state.auth);
+
   
     const toggleDropdown = (itemId: any) => {
       setShowDropdown(!showDropdown)
@@ -59,7 +58,6 @@ export default function Home() {
     }
   
     useEffect(() => {
-      console.log(user? user.data.results : null)
       fetchData()
     }, [currentPage])
   
