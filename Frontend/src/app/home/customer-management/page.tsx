@@ -215,6 +215,9 @@ export default function Home() {
                                 Full Name
                               </th>
                               <th scope="col" className="px-4 py-3">
+                                Role
+                              </th>
+                              <th scope="col" className="px-4 py-3">
                                 Email
                               </th>
                               <th scope="col" className="px-4 py-3">
@@ -254,6 +257,7 @@ export default function Home() {
                                     <td className="px-4 py-3">
                                       {item.firstName} {item.lastName}
                                     </td>
+                                    <td className="px-4 py-3">{item.role}</td>
                                     <td className="px-4 py-3">{item.email}</td>
                                     <td className="px-4 py-3">{item.gender}</td>
                                     <td className="px-4 py-3">{age}</td>

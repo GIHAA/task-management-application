@@ -1,7 +1,6 @@
 import axios from "axios";
+import { BE_URL } from "./api";
 
-//const  BE_URL = "https://proclient.azurewebsites.net/api/v1"
-const  BE_URL = "http://localhost/api/v1/auth"
 
 interface signInPayload {
 
@@ -20,12 +19,12 @@ interface signUpPayload {
 }
 
 const signIn = async (payload:signInPayload) =>{
-    const response = await axios.post(`${BE_URL}/signin`, payload);
+    const response = await axios.post(`${BE_URL}/auth/signin`, payload);
     return response;
 }
 
 const signUp = async (payload:signUpPayload) =>{
-    const response = await axios.post(`${BE_URL}/signup`, payload);
+    const response = await axios.post(`${BE_URL}/auth/signup`, payload);
     return response.data.results;
 }
 

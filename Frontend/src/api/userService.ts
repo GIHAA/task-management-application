@@ -1,7 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-
-//const  BE_URL = "https://proclient.azurewebsites.net/api/v1"
-const  BE_URL = "http://localhost/api/v1"
+import { BE_URL } from "./api";
 
 interface UserCreatePayload {
     firstName: string,
