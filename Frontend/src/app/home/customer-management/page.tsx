@@ -24,9 +24,9 @@ export default function Home() {
     const [totalElements, setTotalElements] = useState(0)
     const [searchType, setSearchType] = useState("NAME" as string)
 
-    const getUser = localStorage.getItem("user");
+    const getUser = typeof window !== 'undefined' ? localStorage.getItem("user") : null;
     const user = getUser ? JSON.parse(getUser) : null;
-  
+    
     const toggleDropdown = (itemId: any) => {
       setShowDropdown(!showDropdown)
       setSelectedItemId(itemId)

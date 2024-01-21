@@ -17,8 +17,9 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
   const [gender, setGender] = useState({ value: "", error: "" })
   const [dob, setdob] = useState({ value: "" , error: "" })
 
-  const getUser = localStorage.getItem("user");
+  const getUser = typeof window !== 'undefined' ? localStorage.getItem("user") : null;
   const user = getUser ? JSON.parse(getUser) : null;
+  
 
 
   const onAddCustomer = () => {
