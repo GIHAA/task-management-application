@@ -46,7 +46,7 @@ export const PdfGenerator = ( total: number ,  data : any) => {
   doc.setFontSize(12);
   doc.setTextColor("#000000");
 
-  doc.autoTable({
+  (doc as any).autoTable({
     startY: 145,
     head: [["Id", "Name", "Email", "Phone Number", "Gender"]],
     body: data.map((request: any) => [
@@ -58,6 +58,6 @@ export const PdfGenerator = ( total: number ,  data : any) => {
     ]),
     theme: "grid",
   });
-
+  
   doc.save(`${name}.pdf`);
 };
