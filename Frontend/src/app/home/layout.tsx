@@ -7,6 +7,7 @@ interface RootLayoutProps {
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => (
   <html lang="en">
     <body className="h-full">
+      
       <main className="app">{children}</main>
     </body>
   </html>

@@ -2,6 +2,7 @@ package com.demo.taskmanagement.service.impl;
 
 
 import com.demo.taskmanagement.common.types.Role;
+import com.demo.taskmanagement.common.types.Status;
 import com.demo.taskmanagement.exception.ModuleException;
 import com.demo.taskmanagement.model.Task;
 import com.demo.taskmanagement.model.User;
@@ -45,7 +46,7 @@ public class TaskServiceImpl implements TaskService {
 
         User user = userService.getCurrentUser();
 
-        Task task = Task.builder().name(taskCreateDto.getName()).description(taskCreateDto.getDescription()).owner(user).created_at(new Date()).build();
+        Task task = Task.builder().name(taskCreateDto.getName()).description(taskCreateDto.getDescription()).owner(user).created_at(new Date()).priority(taskCreateDto.getPriority()).status(taskCreateDto.setStatus()).build();
 
         Task savedTask = taskDao.save(task);
 
@@ -105,6 +106,12 @@ public class TaskServiceImpl implements TaskService {
         if (taskEditDto.getDescription() != null) {
             existingTask.get().setDescription(taskEditDto.getDescription());
         }
+        if (taskEditDto.getPriority() != null) {
+            existingTask.get().setPriority(taskEditDto.getPriority());
+        }
+        if (taskEditDto.getStatus() != null) {
+            existingTask.get().setStatus(taskEditDto.getStatus());
+        }
 
         Task updatedTask = taskDao.save(existingTask.get());
 
@@ -142,7 +149,5 @@ public class TaskServiceImpl implements TaskService {
 
         return new ResponseEntityDto(false, searchResults);
     }
-
-
 
 }

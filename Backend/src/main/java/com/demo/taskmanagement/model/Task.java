@@ -2,7 +2,9 @@ package com.demo.taskmanagement.model;
 
 
 import com.demo.taskmanagement.common.types.Gender;
+import com.demo.taskmanagement.common.types.Priority;
 import com.demo.taskmanagement.common.types.Role;
+import com.demo.taskmanagement.common.types.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,5 +35,7 @@ public class Task  {
     @DBRef
     private User owner;
     private Date created_at;
+    private Priority priority;
+    private Status status;
 
 }

@@ -1,5 +1,7 @@
 package com.demo.taskmanagement.payload.dto;
 
+import com.demo.taskmanagement.common.types.Priority;
+import com.demo.taskmanagement.common.types.Status;
 import com.demo.taskmanagement.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,4 +16,6 @@ public class TaskEditDto {
     private String id;
     private String name;
     private String description;
+    private Priority priority;
+    private Status status;
 }

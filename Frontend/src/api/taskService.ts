@@ -2,22 +2,14 @@ import axios, { AxiosRequestConfig } from "axios";
 import { BE_URL } from "./api";
 
 interface TaskCreatePayload {
-    firstName: string,
-    lastName: string,
-    email: string,
-    phoneNumber: string,
-    gender: string,
-    dob: string,
+    name: string,
+    description: string,
 }
 
 interface TaskUpdatePayload {
     id: string
-    firstName: string,
-    lastName: string,
-    email: string,
-    phoneNumber: string,
-    gender: string,
-    dob: string,
+    name: string,
+    description: string,
 }
 
 const axiosWithToken = (token: string): AxiosRequestConfig => ({
