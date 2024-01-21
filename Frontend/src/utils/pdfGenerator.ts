@@ -1,11 +1,10 @@
-import { toast } from 'react-toastify'; 
+
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import CustomerService from '../api/cusService';
 
 export const PdfGenerator = ( total: number ,  data : any) => {
 
-  toast.info("Generating Report");
   const name = "Customer Report";
   const pdf_title = "Customer Report";
   const pdf_email = "info@taskmanager.com";

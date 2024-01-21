@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import PhoneInput  from "react-phone-input-2"
 import "react-phone-input-2/lib/style.css"
-import { toast } from "react-toastify"
+
 import customerService from "../api/cusService"
 import { emailValidator } from "../helpers/emailValidator"
 import { inputValidator } from "../helpers/inputValidator"

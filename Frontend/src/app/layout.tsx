@@ -1,11 +1,7 @@
 "use client"
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ToastContainer } from "react-toastify";
 import "./globals.css";
-// layout.tsx
-
-import { StoreProvider } from './StoreProvider';
 
 
 const inter = Inter({ subsets: ["latin"] });

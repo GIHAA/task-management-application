@@ -1,16 +1,15 @@
 "use client";
 import AuthService from "@/api/authService";
 import { emailValidator } from "@/helpers/emailValidator";
-import { inputValidator } from "@/helpers/inputValidator";
 import { passwordValidator } from "@/helpers/passWordValidator";
-import { login, reset } from "@/lib/features/auth/authSlice";
+
 import bg from "next/image";
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
+
+
 
 export default function Home() {
   const [email, setEmail] = useState({ value: "", error: "" });
