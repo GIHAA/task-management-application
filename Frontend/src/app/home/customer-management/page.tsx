@@ -9,10 +9,6 @@ import customerService from "@/api/cusService"
 import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";
-import TaskService from "@/api/taskService";
-import { useSelector } from "react-redux";
-import { logout } from "@/lib/features/auth/authSlice";
-
 
 export default function Home() {
     const [displayCreateFrom, setDisplayCreateFrom] = useState(false)
@@ -28,8 +24,6 @@ export default function Home() {
     const [totalPages, setTotalPages] = useState(0)
     const [totalElements, setTotalElements] = useState(0)
     const [searchType, setSearchType] = useState("NAME" as string)
-
-    const { user } = useSelector((state) => state.auth);
   
     const toggleDropdown = (itemId: any) => {
       setShowDropdown(!showDropdown)
@@ -40,7 +34,7 @@ export default function Home() {
       setLoading(true)
       try {
   
-        const response = await TaskService.getAllTasks(currentPage-1, pageSize)
+        const response = await customerService.getAllCustomers(currentPage-1, pageSize)
   
         if (response.status === 200) {
           const responseData = response.data.results[0]
@@ -59,7 +53,6 @@ export default function Home() {
     }
   
     useEffect(() => {
-      console.log(user? user.data.results : null)
       fetchData()
     }, [currentPage])
   
@@ -220,7 +213,7 @@ export default function Home() {
                         type="button"
                         className="inline-flex items-center px-5 py-2.5  text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-primary-900 hover:bg-blue-800"
                         onClick={() => {
-                       
+                          exportPdf()
                         }}
                       >
                         Export as PDF
@@ -240,7 +233,7 @@ export default function Home() {
                           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                               <th scope="col" className="px-4 py-3">
-                                {user.firstname}
+                                Id
                               </th>
                               <th scope="col" className="px-4 py-3">
                                 Full Name

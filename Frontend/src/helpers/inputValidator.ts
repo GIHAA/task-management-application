@@ -1,5 +1,5 @@
-export function inputValidator(name: string) {
-    if (!name) return `can't be empty.`
+export function inputValidator(name: string , value: string) {
+    if (!value) return `${name} can't be empty.`
     return ''
   }
   
