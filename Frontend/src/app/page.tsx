@@ -70,7 +70,7 @@ export default function Home() {
 
   // useEffect(() => {
   //   if (isError) {
-  //     toast.error(message);
+  //     //toast.error(message);
   //   }
 
   //   if (isSuccess || user) {

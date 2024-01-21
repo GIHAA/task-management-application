@@ -9,7 +9,7 @@ import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";
 import TaskService from "@/api/taskService";
-import {toast} from 'react-toastify';
+//import {toast} from 'react-toastify';
 
 export default function Home() {
     const [displayCreateFrom, setDisplayCreateFrom] = useState(false)
@@ -64,14 +64,14 @@ export default function Home() {
       customerService.getAllCustomers(0, totalElements).then((res) =>{
         PdfGenerator(totalElements , res.data.results[0].content )
       }).catch(() => {
-        toast.error("Report genaration failed")
+        //toast.error("Report genaration failed")
       })
       
     }
   
     const handleDelete = async (cus: any) => {
       try {
-        toast.warn(
+        //toast.warn(
           <div>
             <p
               className="text-red-700 ml-8"
@@ -90,12 +90,12 @@ export default function Home() {
                   const response = await customerService.deleteCustomer(cus.id)
   
                   if (response.status === 204) {
-                    toast.success(`${cus.firstName} removed successfully`)
+                    //toast.success(`${cus.firstName} removed successfully`)
                     setData((prevItems) =>
                       prevItems.filter((data : any) => data.id !== cus.id),
                     )
                   } else {
-                    toast.error("Removing failed")
+                    //toast.error("Removing failed")
                   }
                 }}
               >
@@ -103,7 +103,7 @@ export default function Home() {
               </button>
               <button
                 style={{ fontSize: "1.2rem", padding: "0.5rem 1rem" }}
-                onClick={() => toast.dismiss()}
+                onClick={() => //toast.dismiss()}
               >
                 No
               </button>
@@ -112,7 +112,7 @@ export default function Home() {
           { autoClose: false },
         )
       } catch (error) {
-        toast.error(error as ToastContent<unknown>)
+        //toast.error(error as ToastContent<unknown>)
       }
     }
   

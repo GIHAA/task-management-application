@@ -66,16 +66,16 @@ const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
     if (Object.keys(updatedFields).length > 1) {
       try {
         const res = await customerService.updateCustomer(updatedFields)
-        toast.success("Customer successfully updated")
+        //toast.success("Customer successfully updated")
         fetchData()
         setDisplayUpdateForm(false)
       } catch (err) {
         setDisplayUpdateForm(false)
-        toast.error(`Error: ${err}`)
+        //toast.error(`Error: ${err}`)
       }
     } else {
       setDisplayUpdateForm(false)
-      toast.info("No changes were made.")
+      //toast.info("No changes were made.")
     }
   }
 

@@ -7,7 +7,7 @@ import customerService from "@/api/cusService"
 import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";
-import {toast} from 'react-toastify';
+// import {toast, ToastContent} from 'react-toastify';
 
 export default function Home() {
     const [displayCreateFrom, setDisplayCreateFrom] = useState(false)
@@ -59,10 +59,10 @@ export default function Home() {
     }, [currentPage])
   
     const exportPdf = () => {
-      customerService.getAllCustomers(0, totalElements).then((res) =>{
+      customerService.getAllCustomers(0, totalElements, user.token).then((res) =>{
         PdfGenerator(totalElements , res.data.results[0].content )
       }).catch(() => {
-        toast.error("Report genaration failed")
+        //toast.error("Report genaration failed")
       })
       
     
@@ -86,15 +86,15 @@ export default function Home() {
                   padding: "0.5rem 1rem",
                 }}
                 onClick={async () => {
-                  const response = await customerService.deleteCustomer(cus.id)
+                  const response = await customerService.deleteCustomer(cus.id , user.token)
   
                   if (response.status === 204) {
-                    toast.success(`${cus.firstName} removed successfully`)
+                    //toast.success(`${cus.firstName} removed successfully`)
                     setData((prevItems) =>
                       prevItems.filter((data : any) => data.id !== cus.id),
                     )
                   } else {
-                    toast.error("Removing failed")
+                    //toast.error("Removing failed")
                   }
                 }}
               >
@@ -111,7 +111,7 @@ export default function Home() {
           { autoClose: false },
         )
       } catch (error) {
-        toast.error(error as ToastContent<unknown>)
+        //toast.error(error as ToastContent<unknown>)
       }
     }
   
@@ -119,7 +119,7 @@ export default function Home() {
       setLoading(true)
       const searchValue = event.target.value
       customerService
-        .searchCustomers(searchType , searchValue)
+        .searchCustomers(searchType , searchValue , user.token)
         .then((response) => {
           if (response.status === 200) {
             setLoading(false)

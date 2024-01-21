@@ -1,6 +1,6 @@
 "use client";
-@import 'react-toastify/dist/ReactToastify.css';
-import {ToastContainer} from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css';
+//import {ToastContainer} from 'react-toastify';
 import Sidebar from "@/components/Sidebar";
 
 const RootLayout = ({ children }) => (
