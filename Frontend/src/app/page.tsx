@@ -45,7 +45,7 @@ export default function Home() {
 
         localStorage.setItem("user" , JSON.stringify(user))
 
-        router.push('/home')
+        router.push('/home/customer-management')
       }
 
     } catch (error : any) {
