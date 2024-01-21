@@ -2,10 +2,9 @@ import React from "react";
 
 const Header = () => {
 
-  // const getuser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
-  // const user = getuser ? JSON.parse(getuser) : null;
+  const getuser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  const user = getuser ? JSON.parse(getuser) : null;
 
-  const user = {token : "ss"}
 
 
   const handleLogout = () => {
@@ -32,10 +31,10 @@ const Header = () => {
             <div className="flex items-center">
               <div className="flex-1 min-w-0 ms-4">
                 <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                  {/* {user.user.firstName + " " + user.user.lastName} */}
+                  {user?.user.firstName + " " + user?.user.lastName}
                 </p>
                 <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                 {/* Role : {user.user.role} */}
+                 Role : {user?.user.role}
                 </p>
               </div>
             </div>
