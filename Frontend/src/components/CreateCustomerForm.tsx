@@ -14,7 +14,7 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
   const [firstName, setfirstName] = useState({ value: "", error: "" })
   const [lastName, setlastName] = useState({ value: "", error: "" })
   const [email, setemail] = useState({ value: "", error: "" })
-  const [phoneNumber, setphoneNumber] = useState({ value: "940816191", error: "" })
+  const [phoneNumber, setphoneNumber] = useState({ value: "", error: "" })
   const [gender, setGender] = useState({ value: "", error: "" })
   const [dob, setdob] = useState({ value: "" , error: "" })
   const [role, setRole] = useState({ value: "" , error: "" })

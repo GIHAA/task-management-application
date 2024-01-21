@@ -21,7 +21,6 @@ interface UserUpdatePayload {
     dob: string,
 }
 
-// Function to set up Axios with the bearer token
 const axiosWithToken = (token: string): AxiosRequestConfig => ({
     headers: {
         Authorization: `Bearer ${token}`,
