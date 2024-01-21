@@ -126,7 +126,7 @@ export default function Home() {
             console.error("Error fetching data:", response.statusText)
           }
         })
-        .catch((error) => {
+        .catch((error : any) => {
           setLoading(false)
           console.error("Error fetching data:", error)
         })

@@ -1,11 +1,13 @@
-"use client";
-import Sidebar from "@/components/Sidebar";
+import React, { ReactNode } from 'react';
 
-const RootLayout = ({ children }) => (
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+const RootLayout: React.FC<RootLayoutProps> = ({ children }) => (
   <html lang="en">
     <body className="h-full">
-        <Sidebar />
-        <main className="app">{children}</main>
+      <main className="app">{children}</main>
     </body>
   </html>
 );
