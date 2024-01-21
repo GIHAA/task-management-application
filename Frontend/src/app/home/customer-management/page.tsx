@@ -7,6 +7,7 @@ import customerService from "@/api/cusService"
 import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";
+import { toast } from "sonner";
 // import {toast, ToastContent} from 'react-toastify';
 
 export default function Home() {
@@ -69,6 +70,23 @@ export default function Home() {
     }
   
     const handleDelete = async (cus: any) => {
+      toast(`Are sure you want to remove ${cus.firstName}`, {
+        action: {
+          label: 'Remove',
+          onClick: async () => {
+            const response = await customerService.deleteCustomer(cus.id , user.token)
+  
+                  if (response.status === 204) {
+                    //toast.success(`${cus.firstName} removed successfully`)
+                    setData((prevItems) =>
+                      prevItems.filter((data : any) => data.id !== cus.id),
+                    )
+                  } else {
+                    //toast.error("Removing failed")
+                  }
+          }
+        },
+      })
       try {
         // toast.warn(
         //   <div>
