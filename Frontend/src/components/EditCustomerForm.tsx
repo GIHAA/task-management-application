@@ -26,12 +26,12 @@ const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
       id: target.id,
     }
 
-    const firstNameError = inputValidator(firstName.value)
-    const lastNameError = inputValidator(lastName.value)
-    const dobError = inputValidator(dob.value)
-    const emailError = emailValidator(email.value)
-    const phoneNumberError = inputValidator(phoneNumber.value)
-    const genderError = inputValidator(gender.value)
+    const firstNameError = inputValidator( "First Name" , firstName.value)
+    const lastNameError = inputValidator( "Last Name" , lastName.value)
+    const dobError = inputValidator( "Dob", dob.value)
+    const emailError = emailValidator( email.value)
+    const phoneNumberError = inputValidator( "Phone Number ", phoneNumber.value)
+    const genderError = inputValidator( "Gender" , gender.value)
 
     if (
       emailError ||
@@ -68,7 +68,7 @@ const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
 
     if (Object.keys(updatedFields).length > 1) {
       try {
-        const res = await customerService.updateCustomer(updatedFields)
+        const res = await customerService.updateCustomer(updatedFields , user.token)
         //toast.success("Customer successfully updated")
         fetchData()
         setDisplayUpdateForm(false)

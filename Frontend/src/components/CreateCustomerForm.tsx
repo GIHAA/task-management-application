@@ -15,7 +15,7 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
   const [email, setemail] = useState({ value: "", error: "" })
   const [phoneNumber, setphoneNumber] = useState({ value: "", error: "" })
   const [gender, setGender] = useState({ value: "", error: "" })
-  const [dob, setdob] = useState({ value: null , error: "" })
+  const [dob, setdob] = useState({ value: "" , error: "" })
 
   const getUser = localStorage.getItem("user");
   const user = getUser ? JSON.parse(getUser) : null;
@@ -190,7 +190,7 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
                   <DatePicker
                     id="dateOfBirth"
                     selected={dob.value ? new Date(dob.value) : null}
-                    onChange={ (date) =>  setdob({ ...dob, value:date })}
+                    onChange={ (date : any) =>  setdob({ ...dob, value:date })}
                     className={`bg-gray-50 border ${
                       dob.error ? "outline-red-500 outline outline-1" : ""
                     } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[235px] p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
