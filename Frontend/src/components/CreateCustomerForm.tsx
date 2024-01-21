@@ -17,14 +17,17 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
   const [gender, setGender] = useState({ value: "", error: "" })
   const [dob, setdob] = useState({ value: null , error: "" })
 
+  const getUser = localStorage.getItem("user");
+  const user = getUser ? JSON.parse(getUser) : null;
+
 
   const onAddCustomer = () => {
-    const firstNameError = inputValidator(firstName.value)
-    const lastNameError = inputValidator(lastName.value)
-    const dobError = inputValidator(dob.value)
-    const emailError = emailValidator(email.value)
-    const phoneNumberError = inputValidator(phoneNumber.value)
-    const genderError = inputValidator(gender.value)
+    const firstNameError = inputValidator( "First Name" , firstName.value)
+    const lastNameError = inputValidator( "Last Name" , lastName.value)
+    const dobError = inputValidator( "Dob", dob.value)
+    const emailError = emailValidator( email.value)
+    const phoneNumberError = inputValidator( "Phone Number ", phoneNumber.value)
+    const genderError = inputValidator( "Gender" , gender.value)
 
     if (emailError || firstNameError || lastNameError || phoneNumber.error || phoneNumberError || dobError || genderError) {
       setfirstName({ ...firstName, error: firstNameError })
@@ -43,7 +46,7 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
       phoneNumber: phoneNumber.value,
       gender: gender.value,
       dob: dob.value,
-    }).then((res) => {
+    }, user.token).then((res) => {
       //toast.success("Customer added successfully")
       fetchData()
       setDisplayCreateFrom(false)

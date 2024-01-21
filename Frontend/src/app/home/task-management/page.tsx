@@ -67,7 +67,7 @@ export default function Home() {
   
     const handleDelete = async (cus: any) => {
       try {
-        //toast.warn(
+        toast.warn(
           <div>
             <p
               className="text-red-700 ml-8"
@@ -99,7 +99,7 @@ export default function Home() {
               </button>
               <button
                 style={{ fontSize: "1.2rem", padding: "0.5rem 1rem" }}
-                onClick={() => //toast.dismiss()}
+                onClick={() => toast.dismiss()}
               >
                 No
               </button>

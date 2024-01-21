@@ -3,6 +3,9 @@ import React from "react"
 
 const Sidebar = () => {
 
+  const getUser = localStorage.getItem("user");
+  const user = getUser ? JSON.parse(getUser) : null;
+  
   return (
     <>
       <div data-testid="side-bar" className="antialiased bg-gray-50 dark:bg-gray-900">
