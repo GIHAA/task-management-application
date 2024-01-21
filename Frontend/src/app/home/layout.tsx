@@ -8,7 +8,7 @@ const RootLayout = ({ children }) => (
     <body className="h-full">
         <Sidebar />
         <main className="app">{children}</main>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
     </body>
   </html>
 );
