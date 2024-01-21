@@ -93,7 +93,7 @@ export default function Home() {
       setLoading(true)
       const searchValue = event.target.value
       customerService
-        .deleteUser(searchType , searchValue , user.token)
+        .searchUsers(searchType , searchValue , user.token)
         .then((response) => {
           if (response.status === 200) {
             setLoading(false)
