@@ -8,6 +8,8 @@ import { inputValidator } from "../helpers/inputValidator";
 const CreateTaskForm = ({ setDisplayCreateFrom, fetchData }: any) => {
   const [name, setName] = useState({ value: "", error: "" });
   const [description, setDescription] = useState({ value: "", error: "" });
+  const [priority, setPriority] = useState({ value: "", error: "" });
+  const [status, setStatus] = useState({ value: "", error: "" });
 
 
   const getuser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
@@ -16,14 +18,19 @@ const CreateTaskForm = ({ setDisplayCreateFrom, fetchData }: any) => {
   const onAddTask = () => {
     const NameError = inputValidator("First Name", name.value);
     const DescriptionError = inputValidator("Last Name", description.value);
+    const PriorityError = inputValidator("Priority", priority.value);
+    const StatusError = inputValidator("Status", status.value);
 
     if (
       NameError ||
-      DescriptionError
-
+      DescriptionError ||
+      PriorityError ||
+      StatusError
     ) {
       setName({ ...name, error: NameError });
       setDescription({ ...description, error: DescriptionError });
+      setPriority({ ...priority, error: PriorityError });
+      setStatus({ ...status, error: StatusError });
       return;
     }
 
@@ -31,6 +38,8 @@ const CreateTaskForm = ({ setDisplayCreateFrom, fetchData }: any) => {
       {
         name: name.value,
         description: description.value,
+        priority: priority.value,
+        status: status.value,
       },
       user.token
     )
@@ -54,8 +63,8 @@ const CreateTaskForm = ({ setDisplayCreateFrom, fetchData }: any) => {
               Add New Task
             </h2>
             <div>
-              <div className="grid gap-4 grid-cols-1 sm:gap-5">
-                <div className="w-[300px]">
+              <div className="grid gap-4 grid-cols-2 sm:gap-5">
+                <div className="w-[400px] col-span-2">
                   <label
                     htmlFor="itemName"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -84,7 +93,7 @@ const CreateTaskForm = ({ setDisplayCreateFrom, fetchData }: any) => {
                   />
                 </div>
 
-                <div className="">
+                <div className="col-span-2">
                   <label
                     htmlFor="itemName"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -112,8 +121,51 @@ const CreateTaskForm = ({ setDisplayCreateFrom, fetchData }: any) => {
                     }
                   />
                 </div>
-              </div>
+             
 
+
+              <div className="col-span-1" >
+                  <label
+                    htmlFor="tags"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Priority  {priority.error ? (<span className="text-red-500 text-[13px]">  {priority.error}</span>) : (<></>)}
+                  </label>
+                  <select
+                    id="tags"
+                    name="tags"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    onChange={(e) => setPriority({ ...priority, value: e.target.value })}
+                  >
+                    <option value="">-</option>
+                    <option value="HIGH">High</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="LOW">Low</option>
+                  </select>
+                </div>
+
+
+                <div className="col-span-1">
+                  <label
+                    htmlFor="tags"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Status  {status.error ? (<span className="text-red-500 text-[13px]">  {status.error}</span>) : (<></>)}
+                  </label>
+                  <select
+                    id="tags"
+                    name="tags"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    onChange={(e) => setStatus({ ...status, value: e.target.value })}
+                  >
+                    <option value="">-</option>
+                    <option value="TODO">To do</option>
+                    <option value="IN_PROGRESS">In progress</option>
+                    <option value="DONE">Done</option>
+                    <option value="CANCELLED">Cancelled</option>
+                  </select>
+                </div>
+                </div>
               <div className="col-span-2 mb-7 mt-5 items-center border-gray-200 border-t dark:border-gray-700 justify-between"></div>
 
               <div className="mt-2">

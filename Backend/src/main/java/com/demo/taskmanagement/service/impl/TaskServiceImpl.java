@@ -46,7 +46,7 @@ public class TaskServiceImpl implements TaskService {
 
         User user = userService.getCurrentUser();
 
-        Task task = Task.builder().name(taskCreateDto.getName()).description(taskCreateDto.getDescription()).owner(user).created_at(new Date()).priority(taskCreateDto.getPriority()).status(taskCreateDto.setStatus()).build();
+        Task task = Task.builder().name(taskCreateDto.getName()).description(taskCreateDto.getDescription()).owner(user).created_at(new Date()).priority(taskCreateDto.getPriority()).status(taskCreateDto.getStatus()).build();
 
         Task savedTask = taskDao.save(task);
 

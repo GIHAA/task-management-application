@@ -4,12 +4,16 @@ import { BE_URL } from "./api";
 interface TaskCreatePayload {
     name: string,
     description: string,
+    priority: string,
+    status: string,
 }
 
 interface TaskUpdatePayload {
     id: string
     name: string,
     description: string,
+    priority: string,
+    status: string,
 }
 
 const axiosWithToken = (token: string): AxiosRequestConfig => ({
