@@ -19,10 +19,8 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
   const [dob, setdob] = useState({ value: "" , error: "" })
   const [role, setRole] = useState({ value: "" , error: "" })
 
-  const getUser = typeof window !== 'undefined' ? localStorage.getItem("user") : null;
-  const user = getUser ? JSON.parse(getUser) : null;
-  
-
+  const getuser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  const user = getuser ? JSON.parse(getuser) : null;
 
   const onAddUser = () => {
 

@@ -17,10 +17,8 @@ const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
   const [priority, setPriority] = useState({ value: "", error: "" });
   const [status, setStatus] = useState({ value: "", error: "" });
 
-  const getUser = typeof window !== 'undefined' ? localStorage.getItem("user") : null;
-  const user = getUser ? JSON.parse(getUser) : null;
-  
-
+  const getuser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  const user = getuser ? JSON.parse(getuser) : null;
 
   const onUpdateUser = async () => {
     const updatedFields: any = {
