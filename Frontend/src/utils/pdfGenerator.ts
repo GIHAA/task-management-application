@@ -1,7 +1,7 @@
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import CustomerService from '../api/cusService';
+import CustomerService from '../api/userService';
 
 export const PdfGenerator = ( total: number ,  data : any) => {
 
@@ -58,6 +58,6 @@ export const PdfGenerator = ( total: number ,  data : any) => {
     ]),
     theme: "grid",
   });
-  
+
   doc.save(`${name}.pdf`);
 };

@@ -4,12 +4,12 @@ import "react-datepicker/dist/react-datepicker.css"
 import PhoneInput from "react-phone-input-2"
 import "react-phone-input-2/lib/style.css"
 
-import customerService from "../api/cusService"
+import UserService from "../api/userService"
 import { emailValidator } from "../helpers/emailValidator"
 import { inputValidator } from "../helpers/inputValidator"
 import { phoneNumebrValidator } from "../helpers/phoneNumebrValidator"
 
-const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
+const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
   const [firstName, setfirstName] = useState({ value: "", error: "" })
   const [lastName, setlastName] = useState({ value: "", error: "" })
   const [email, setemail] = useState({ value: "", error: "" })
@@ -22,7 +22,7 @@ const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
   
 
 
-  const onUpdateCustomer = async () => {
+  const onUpdateUser = async () => {
     const updatedFields: any = {
       id: target.id,
     }
@@ -69,8 +69,8 @@ const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
 
     if (Object.keys(updatedFields).length > 1) {
       try {
-        const res = await customerService.updateCustomer(updatedFields , user.token)
-        //toast.success("Customer successfully updated")
+        const res = await UserService.updateUser(updatedFields , user.token)
+        //toast.success("User successfully updated")
         fetchData()
         setDisplayUpdateForm(false)
       } catch (err) {
@@ -106,7 +106,7 @@ const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
         <section className="bg-white dark:bg-gray-900 rounded-xl mt-[50px]">
           <div className="py-8 px-4 mx-auto max-w-2xl lg:py-5 ">
             <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-              Edit Customer {target.id}
+              Edit User {target.id}
             </h2>
             <div>
               <div className="grid gap-4 sm:grid-cols-2  grid-cols-1 sm:gap-5">
@@ -297,9 +297,9 @@ const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
               <div className="mt-2">
                 <button
                   className="inline-flex items-center px-5 py-2.5  text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-primary-900 hover:bg-blue-800"
-                  onClick={onUpdateCustomer}
+                  onClick={onUpdateUser}
                 >
-                  Update Customer
+                  Update User
                 </button>
 
                 <button
@@ -320,4 +320,4 @@ const EditCustomerForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
   )
 }
 
-export default EditCustomerForm
+export default EditUserForm

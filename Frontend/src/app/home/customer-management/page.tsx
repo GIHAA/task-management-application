@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 import Header from "@/components/Header"
 import Placeholder from "@/components/PlaceHolder"
 import CreateCustomerForm from "@/components/CreateCustomerForm"
-import customerService from "@/api/cusService"
+import customerService from "@/api/userService"
 import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";
@@ -37,7 +37,7 @@ export default function Home() {
       setLoading(true)
       try {
   
-        const response = await customerService.getAllCustomers(currentPage-1, pageSize , user.token)
+        const response = await customerService.getAllUsers(currentPage-1, pageSize , user.token)
   
         if (response.status === 200) {
           const responseData = response.data.results[0]
@@ -60,7 +60,7 @@ export default function Home() {
     }, [currentPage])
   
     const exportPdf = () => {
-      customerService.getAllCustomers(0, totalElements, user.token).then((res) =>{
+      customerService.getAllUsers(0, totalElements, user.token).then((res) =>{
         PdfGenerator(totalElements , res.data.results[0].content )
       }).catch(() => {
         //toast.error("Report genaration failed")
@@ -74,7 +74,7 @@ export default function Home() {
         action: {
           label: 'Remove',
           onClick: async () => {
-            const response = await customerService.deleteCustomer(cus.id , user.token)
+            const response = await customerService.deleteUser(cus.id , user.token)
   
                   if (response.status === 204) {
                     //toast.success(`${cus.firstName} removed successfully`)
@@ -137,7 +137,7 @@ export default function Home() {
       setLoading(true)
       const searchValue = event.target.value
       customerService
-        .searchCustomers(searchType , searchValue , user.token)
+        .deleteUser(searchType , searchValue , user.token)
         .then((response) => {
           if (response.status === 200) {
             setLoading(false)

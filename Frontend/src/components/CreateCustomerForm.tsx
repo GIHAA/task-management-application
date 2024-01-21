@@ -3,60 +3,67 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import PhoneInput  from "react-phone-input-2"
 import "react-phone-input-2/lib/style.css"
+import { toast } from "sonner";
 
-import customerService from "../api/cusService"
+import UserService from "../api/userService"
 import { emailValidator } from "../helpers/emailValidator"
 import { inputValidator } from "../helpers/inputValidator"
 import { phoneNumebrValidator } from "../helpers/phoneNumebrValidator"
 
-const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
+const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
   const [firstName, setfirstName] = useState({ value: "", error: "" })
   const [lastName, setlastName] = useState({ value: "", error: "" })
   const [email, setemail] = useState({ value: "", error: "" })
-  const [phoneNumber, setphoneNumber] = useState({ value: "", error: "" })
+  const [phoneNumber, setphoneNumber] = useState({ value: "940816191", error: "" })
   const [gender, setGender] = useState({ value: "", error: "" })
   const [dob, setdob] = useState({ value: "" , error: "" })
+  const [role, setRole] = useState({ value: "" , error: "" })
 
   const getUser = typeof window !== 'undefined' ? localStorage.getItem("user") : null;
   const user = getUser ? JSON.parse(getUser) : null;
   
 
 
-  const onAddCustomer = () => {
+  const onAddUser = () => {
+
     const firstNameError = inputValidator( "First Name" , firstName.value)
     const lastNameError = inputValidator( "Last Name" , lastName.value)
     const dobError = inputValidator( "Dob", dob.value)
     const emailError = emailValidator( email.value)
     const phoneNumberError = inputValidator( "Phone Number ", phoneNumber.value)
     const genderError = inputValidator( "Gender" , gender.value)
+    const roleError = inputValidator( "Role" , role.value)
 
-    if (emailError || firstNameError || lastNameError || phoneNumber.error || phoneNumberError || dobError || genderError) {
+    if (roleError || emailError || firstNameError || lastNameError || phoneNumber.error || phoneNumberError || dobError || genderError) {
       setfirstName({ ...firstName, error: firstNameError })
       setlastName({ ...lastName, error: lastNameError })
       setemail({ ...email, error: emailError })
       setdob({ ...dob, error: emailError })
       setphoneNumber({ ...phoneNumber, error: phoneNumberError })
       setGender({ ...gender, error : genderError})
+      setRole({ ...role, error : roleError})
       return
     }
+   
 
-    customerService.createCustomer({
+    UserService.createUser({
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
       phoneNumber: phoneNumber.value,
       gender: gender.value,
       dob: dob.value,
+      role: role.value
     }, user.token).then((res) => {
-      //toast.success("Customer added successfully")
+      toast.success("User added successfully")
       fetchData()
       setDisplayCreateFrom(false)
     }).catch((err) => {
       if (err.code == 'ERR_BAD_REQUEST') {
-        //toast.error(`Customer with ${email.value} already exists`)
+        toast.error(`User with ${email.value} already exists`)
         return
       }
-      //toast.error("Something went wrong")
+      toast.error("Error : " + err.message )
     })
 
   }
@@ -73,7 +80,7 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
         <section className="bg-white dark:bg-gray-900 rounded-xl mt-[50px]">
           <div className="py-8 px-4 mx-auto max-w-2xl lg:py-5 ">
             <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
-              Add New Customer
+              Add New User
             </h2>
             <div>
               <div className="grid gap-4 sm:grid-cols-2  grid-cols-1 sm:gap-5">
@@ -86,7 +93,7 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
                     {firstName.error ? (
                       <span className="text-red-500 text-[13px]">
                         {" "}
-                        First name {firstName.error}
+                        {firstName.error}
                       </span>
                     ) : (
                       <></>
@@ -115,7 +122,7 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
                     {lastName.error ? (
                       <span className="text-red-500 text-[13px]">
                         {" "}
-                        Last name {lastName.error}
+                        {lastName.error}
                       </span>
                     ) : (
                       <></>
@@ -204,7 +211,7 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
                     htmlFor="tags"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Gender  {gender.error ? (<span className="text-red-500 text-[13px]"> Gender {gender.error}</span>) : (<></>)}
+                    Gender  {gender.error ? (<span className="text-red-500 text-[13px]">  {gender.error}</span>) : (<></>)}
                   </label>
                   <select
                     id="tags"
@@ -220,6 +227,26 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
                     <option value="OTHER">Other</option>
                   </select>
                 </div>
+
+                <div className="w-full">
+                  <label
+                    htmlFor="tags"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    User type  {role.error ? (<span className="text-red-500 text-[13px]">  {role.error}</span>) : (<></>)}
+                  </label>
+                  <select
+                    id="tags"
+                    name="tags"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    onChange={(e) => setRole({ ...role, value: e.target.value })}
+                  >
+                    <option value="">-</option>
+                    <option value="ADMIN">Admin</option>
+                    <option value="REGULAR_USER">Regular User</option>
+
+                  </select>
+                </div>
               </div>
 
               <div className="col-span-2 mb-7 mt-5 items-center border-gray-200 border-t dark:border-gray-700 justify-between"></div>
@@ -227,9 +254,9 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
               <div className="mt-2">
                 <button
                   className="inline-flex items-center px-5 py-2.5  text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-primary-900 hover:bg-blue-800"
-                  onClick={onAddCustomer}
+                  onClick={onAddUser}
                 >
-                  Add Customer
+                  Add User
                 </button>
 
                 <button
@@ -250,4 +277,4 @@ const CreateCustomerForm = ({setDisplayCreateFrom , fetchData } : any) => {
   )
 }
 
-export default CreateCustomerForm
+export default CreateUserForm

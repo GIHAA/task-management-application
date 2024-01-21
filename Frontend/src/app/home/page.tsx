@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react"
 import Header from "@/components/Header"
 import Placeholder from "@/components/PlaceHolder"
 import CreateCustomerForm from "@/components/CreateCustomerForm"
-import customerService from "@/api/cusService"
+import customerService from "@/api/userService"
 import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";

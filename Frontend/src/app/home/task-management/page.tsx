@@ -8,7 +8,7 @@ import EditCustomerForm from "@/components/EditCustomerForm"
 import Sidebar from "@/components/Sidebar"
 import { PdfGenerator } from "@/utils/pdfGenerator";
 import TaskService from "@/api/taskService";
-import CustomerService from "@/api/cusService";
+import CustomerService from "@/api/userService";
 
 export default function Home() {
 
