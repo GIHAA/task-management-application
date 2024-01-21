@@ -70,46 +70,46 @@ export default function Home() {
   
     const handleDelete = async (cus: any) => {
       try {
-        toast.warn(
-          <div>
-            <p
-              className="text-red-700 ml-8"
-              style={{ fontSize: "1.2rem", padding: "1rem" }}
-            >
-              Are sure you want to remove {cus.firstName}
-            </p>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <button
-                style={{
-                  marginRight: "1rem",
-                  fontSize: "1.2rem",
-                  padding: "0.5rem 1rem",
-                }}
-                onClick={async () => {
-                  const response = await customerService.deleteCustomer(cus.id , user.token)
+        // toast.warn(
+        //   <div>
+        //     <p
+        //       className="text-red-700 ml-8"
+        //       style={{ fontSize: "1.2rem", padding: "1rem" }}
+        //     >
+        //       Are sure you want to remove {cus.firstName}
+        //     </p>
+        //     <div style={{ display: "flex", justifyContent: "center" }}>
+        //       <button
+        //         style={{
+        //           marginRight: "1rem",
+        //           fontSize: "1.2rem",
+        //           padding: "0.5rem 1rem",
+        //         }}
+        //         onClick={async () => {
+        //           const response = await customerService.deleteCustomer(cus.id , user.token)
   
-                  if (response.status === 204) {
-                    //toast.success(`${cus.firstName} removed successfully`)
-                    setData((prevItems) =>
-                      prevItems.filter((data : any) => data.id !== cus.id),
-                    )
-                  } else {
-                    //toast.error("Removing failed")
-                  }
-                }}
-              >
-                Yes
-              </button>
-              <button
-                style={{ fontSize: "1.2rem", padding: "0.5rem 1rem" }}
-                onClick={() => toast.dismiss()}
-              >
-                No
-              </button>
-            </div>
-          </div>,
-          { autoClose: false },
-        )
+        //           if (response.status === 204) {
+        //             //toast.success(`${cus.firstName} removed successfully`)
+        //             setData((prevItems) =>
+        //               prevItems.filter((data : any) => data.id !== cus.id),
+        //             )
+        //           } else {
+        //             //toast.error("Removing failed")
+        //           }
+        //         }}
+        //       >
+        //         Yes
+        //       </button>
+        //       <button
+        //         style={{ fontSize: "1.2rem", padding: "0.5rem 1rem" }}
+        //         onClick={() => toast.dismiss()}
+        //       >
+        //         No
+        //       </button>
+        //     </div>
+        //   </div>,
+        //   { autoClose: false },
+        // )
       } catch (error) {
         //toast.error(error as ToastContent<unknown>)
       }
