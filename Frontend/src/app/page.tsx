@@ -1,37 +1,32 @@
+// Import necessary modules and dependencies
 "use client";
 import AuthService from "@/api/authService";
 import { emailValidator } from "@/helpers/emailValidator";
 import { passwordValidator } from "@/helpers/passWordValidator";
-
 import bg from "next/image";
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-
-import { useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast, Toaster } from "sonner";
 
 
+// Define the Home component
 export default function Home() {
 
-  const router = useRouter()
+  const router = useRouter();
 
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
 
-  // const onChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({ ...formData, [name]: value });
-  // };
-
-  const onSignIn = async () => {
+  const signInUser = async () => {
     try {
-      const emailError = emailValidator(email.value);
-      const passwoedError = passwordValidator(password.value);
 
-      if (emailError || passwoedError) {
+      const emailError = emailValidator(email.value);
+      const passwordError = passwordValidator(password.value);
+
+      if (emailError || passwordError) {
         setEmail({ ...email, error: emailError });
-        setPassword({ ...password, error: passwoedError });
-        return;
+        setPassword({ ...password, error: passwordError });
+        throw new Error('Validation error');
       }
 
       const response = await AuthService.signIn({
@@ -41,46 +36,37 @@ export default function Home() {
 
       if (response.status === 200) {
         const user = response.data.results[0];
-        console.log(user)
+        localStorage.setItem("user", JSON.stringify(user));
 
-        localStorage.setItem("user" , JSON.stringify(user))
-
-        router.push('/home/customer-management')
+        router.push("/home");
       }
-
-    } catch (error : any) {
+    } catch (error:any) {
       const message =
-      (error.response &&
-        error.response.data &&
-        error.response.data.results.message) || error.response.data.results[0].message ||
-      error.message ||
-      error.toString();
+        (error.response &&
+          error.response.data &&
+          error.response.data.results.message) ||
+        error.response.data.results[0].message ||
+        error.message ||
+        error.toString();
 
-      console.log(error.response.data.results[0].message);
-      setEmail({ ...email, error: message });
+      throw new Error(message);
     }
   };
 
-  // const router = useRouter()
-  // const dispatch = useDispatch();
-
-  // const { user, isLoading, isError, isSuccess, message } = useSelector(
-  //   (state) => state.auth
-  // );
-
-  // useEffect(() => {
-  //   if (isError) {
-  //     //toast.error(message);
-  //   }
-
-  //   if (isSuccess || user) {
-  //     //navigate("/");
-  //     router.push('/home', { scroll: false })
-  //   }
-
-  //   dispatch(reset());
-  // }, [user, isError, isSuccess, message , router , dispatch]);
-
+  const signInWithToast = () => {
+    toast.promise(
+      signInUser,
+      {
+        loading: 'Loading...',
+        success: (data) => {
+          return `User logged in successfully`;
+        },
+        error: (error) => {
+          return  'User logging failed';
+        },
+      }
+    );
+  };
 
   return (
     <div
@@ -108,7 +94,7 @@ export default function Home() {
                 {email.error ? (
                   <span className="text-red-500 text-[13px]">
                     {" "}
-                     {email.error}
+                    {email.error}
                   </span>
                 ) : (
                   <></>
@@ -134,7 +120,7 @@ export default function Home() {
                 {password.error ? (
                   <span className="text-red-500 text-[13px]">
                     {" "}
-                     {password.error}
+                    {password.error}
                   </span>
                 ) : (
                   <></>
@@ -152,22 +138,15 @@ export default function Home() {
               </div>
               <button
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                onClick={onSignIn}
+                onClick={signInWithToast}
               >
                 Sign in
               </button>
-              {/* {session ? (
-              // Display the "Admin" link when there is a valid session
-              <a href="/admin" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Admin</a>
-            ) : null}
-            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-              Don’t have an account yet?{" "}
-              <a href="/signup" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sign up</a>
-            </p> */}
             </div>
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }

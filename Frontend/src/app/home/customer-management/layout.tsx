@@ -10,7 +10,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => (
   <html lang="en">
     <body className="h-full">
       <main className="app">{children}</main>
-      <Toaster richColors position="top-right"  />
+      <Toaster closeButton  richColors position="top-right"  />
     </body>
   </html>
 );
