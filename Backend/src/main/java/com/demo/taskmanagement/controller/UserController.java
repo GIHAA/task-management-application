@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -21,12 +22,14 @@ public class UserController {
     @NonNull
     private final UserService userService;
 
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     @PostMapping
     public ResponseEntity<ResponseEntityDto> createUser(@RequestBody UserCreateDto userCreateDto) {
         ResponseEntityDto response = userService.createUser(userCreateDto);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     @GetMapping
     public ResponseEntity<ResponseEntityDto> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
@@ -35,12 +38,14 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     @GetMapping("/{userId}")
     public ResponseEntity<ResponseEntityDto> getOneUser(@PathVariable String userId) {
         ResponseEntityDto response = userService.getOneUser(userId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     @GetMapping("/search")
     public ResponseEntity<ResponseEntityDto> searchUsers(
             @RequestParam String searchField,
@@ -50,12 +55,15 @@ public class UserController {
         ResponseEntityDto response = userService.searchUsers(searchField ,searchTerm, page, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     @PutMapping
     public ResponseEntity<ResponseEntityDto> updateUser(@RequestBody UserEditDto userEditDto) {
         ResponseEntityDto response = userService.editUser(userEditDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyAuthority('OWNER')")
     @DeleteMapping("/{userId}")
     public ResponseEntity<ResponseEntityDto> deleteUser(@PathVariable String userId) {
         ResponseEntityDto response = userService.deleteUser(userId);
