@@ -20,7 +20,7 @@ const Header = () => {
       >
         <div className="flex flex-wrap justify-between items-center">
           <div className="flex justify-start items-center">
-            <a href="/" className="flex items-center justify-between mr-4">
+            <a href="/home" className="flex items-center justify-between mr-4">
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                 Task Manager
               </span>
