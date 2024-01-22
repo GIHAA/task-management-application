@@ -133,7 +133,7 @@ public class TaskServiceImpl implements TaskService {
         Page<Task> searchResults = null;
         switch (searchField.toUpperCase()) {
             case "BOTH":
-                searchResults = taskDao.findByDescriptionContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchTerm, searchTerm , pageRequest);
+                searchResults = taskDao.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchTerm, searchTerm , pageRequest);
                 break;
             case "NAME":
                 searchResults = taskDao.findByNameContainingIgnoreCase(searchTerm , pageRequest);
@@ -142,7 +142,7 @@ public class TaskServiceImpl implements TaskService {
                 searchResults = taskDao.findByDescriptionContainingIgnoreCase(searchTerm, pageRequest);
                 break;
             default:
-                searchResults = taskDao.findByDescriptionContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchTerm, searchTerm, pageRequest);
+                searchResults = taskDao.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchTerm, searchTerm, pageRequest);
                 break;
         }
 
@@ -156,7 +156,7 @@ public class TaskServiceImpl implements TaskService {
         Page<Task> searchResults = null;
         switch (searchField.toUpperCase()) {
             case "BOTH":
-                searchResults = taskDao.findByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCaseAndOwner(searchTerm, searchTerm , user , pageRequest);
+                searchResults = taskDao.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseAndOwner(searchTerm, searchTerm , user , pageRequest);
                 break;
             case "NAME":
                 searchResults = taskDao.findByNameContainingIgnoreCaseAndOwner(searchTerm , user ,  pageRequest);
@@ -165,7 +165,7 @@ public class TaskServiceImpl implements TaskService {
                 searchResults = taskDao.findByDescriptionContainingIgnoreCaseAndOwner(searchTerm , user ,  pageRequest);
                 break;
             default:
-                searchResults = taskDao.findByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCaseAndOwner(searchTerm, searchTerm, user,  pageRequest);
+                searchResults = taskDao.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCaseAndOwner(searchTerm, searchTerm, user,  pageRequest);
                 break;
         }
 
