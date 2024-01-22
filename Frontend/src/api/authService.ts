@@ -9,13 +9,13 @@ interface signInPayload {
 }
 
 interface signUpPayload {
-    // id:string
-    // firstName: string,
-    // lastName:string,
-    // email:string,
-    // phoneNumber:string,
-    // gender:string,
-    // dob:string,
+    id:string
+    firstName: string,
+    lastName:string,
+    email:string,
+    phoneNumber:string,
+    gender:string,
+    dob:string,
 }
 
 const signIn = async (payload:signInPayload) =>{

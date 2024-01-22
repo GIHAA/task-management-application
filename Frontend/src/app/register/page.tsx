@@ -47,6 +47,8 @@ export default function Register() {
       const genderError = inputValidator("Gender", gender.value);
       const passwordError = passwordValidator(password.value);
 
+      console.log("rrrrrrrrrrrrrr")
+
       if (
         emailError ||
         firstNameError ||
@@ -66,7 +68,7 @@ export default function Register() {
         setPassword({ ...password, error: passwordError });
         throw new Error("Validation error");
       }
-
+      console.log("rrrrrrrrrrrrrr")
       const response = await AuthService.signUp({
         firstName: firstName.value,
         lastName: lastName.value,
@@ -77,7 +79,7 @@ export default function Register() {
         password: password.value,
       });
 
-   
+      console.log(response)
         const user = response.data.results[0];
         console.log(user)
         localStorage.setItem("user", JSON.stringify(user));
@@ -121,7 +123,7 @@ export default function Register() {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Sign up your account
+              Create new account
             </h1>
             <div className="space-y-4 md:space-y-6">
               {firstName.error ? (
