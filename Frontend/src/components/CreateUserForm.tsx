@@ -41,7 +41,7 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
       setlastName({ ...lastName, error: lastNameError })
       setemail({ ...email, error: emailError })
       setdob({ ...dob, error: emailError })
-      setphoneNumber({ ...phoneNumber, error: phoneNumberError })
+      setphoneNumber({ ...phoneNumber, error: phoneNumberError || phoneNumber.error  })
       setGender({ ...gender, error : genderError})
       setRole({ ...role, error : roleError})
       setPassword({ ...password, error : passwordError})

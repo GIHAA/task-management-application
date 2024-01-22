@@ -32,7 +32,7 @@ const EditTaskForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
     const emailError = emailValidator( email.value)
     const phoneNumberError = inputValidator( "Phone Number ", phoneNumber.value)
     const genderError = inputValidator( "Gender" , gender.value)
-    toast.info("User successfully updated")
+  
     if (
       emailError ||
       firstNameError ||
@@ -46,7 +46,7 @@ const EditTaskForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
       setlastName({ ...lastName, error: lastNameError })
       setemail({ ...email, error: emailError })
       setdob({ ...dob, error: dobError })
-      setphoneNumber({ ...phoneNumber, error: phoneNumberError })
+      setphoneNumber({ ...phoneNumber, error: phoneNumberError || phoneNumber.error  })
       setGender({ ...gender, error: genderError })
       return
     }
