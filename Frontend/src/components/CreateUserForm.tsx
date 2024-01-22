@@ -110,7 +110,7 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
                     className={`bg-gray-50 border ${
                       firstName.error ? "outline-red-500 outline outline-1" : ""
                     } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
-                    placeholder="Type item name"
+                    placeholder="Enter first name"
                     onChange={(e) =>
                       setfirstName({ ...firstName, value: e.target.value })
                     }
@@ -139,7 +139,7 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
                     className={`bg-gray-50 border ${
                       lastName.error ? "outline-red-500 outline outline-1" : ""
                     } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
-                    placeholder="Type item name"
+                    placeholder="Enter last name"
                     onChange={(e) => setlastName({ ...lastName, value: e.target.value })}
                   />
                 </div>
@@ -166,7 +166,7 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
                     className={`bg-gray-50 border ${
                       email.error ? "outline-red-500 outline outline-1" : ""
                     } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
-                    placeholder="Type item name"
+                    placeholder="Enter email "
                     onChange={(e) => setemail({ ...email, value: e.target.value })}
                   />
                 </div>
@@ -188,13 +188,13 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
                     )}
                   </label>
                   <input
-                    type="text"
+                    type="password"
                     name="itemName"
                     id="itemName"
                     className={`bg-gray-50 border ${
                       password.error ? "outline-red-500 outline outline-1" : ""
                     } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
-                    placeholder="Type item name"
+                    placeholder="*************"
                     onChange={(e) => setPassword({ ...password, value: e.target.value })}
                   />
                 </div>

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -27,6 +28,7 @@ public class TaskController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAnyAuthority('OWNER', 'ADMIN')")
     @GetMapping("/all")
     public ResponseEntity<ResponseEntityDto> getAllTasks(
             @RequestParam(defaultValue = "0") int page,
@@ -49,6 +51,7 @@ public class TaskController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyAuthority('OWNER', 'ADMIN')")
     @GetMapping("/search/all")
     public ResponseEntity<ResponseEntityDto> searchTasks(
             @RequestParam String searchField,
