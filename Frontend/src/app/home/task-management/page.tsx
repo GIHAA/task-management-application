@@ -119,7 +119,7 @@ export default function Page() {
             <div className=" mx-auto max-w-screen-xl px-4 lg:px-2  pt-[50px]">
               <div className="bg-white mt-[10px] dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
               <p className="ml-4 mt-4 self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                Admin Task Management
+                Task Management
               </p>
 
                 <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">

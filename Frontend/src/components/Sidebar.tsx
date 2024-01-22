@@ -24,7 +24,7 @@ const Sidebar = () => {
                   className="flex  items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <img
-                    src="https://img.icons8.com/ios-filled/50/conference-call.png"
+                    src="https://img.icons8.com/ios-filled/50/microsoft-to-do-app.png"
                     alt="People Icon"
                     className="w-8 order-last md:order-first bg-white rounded-[10px] p-1"
                   />
@@ -41,7 +41,7 @@ const Sidebar = () => {
                       className="flex  items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                     >
                       <img
-                        src="https://img.icons8.com/ios-filled/50/conference-call.png"
+                        src="https://img.icons8.com/material-rounded/24/task-completed.png"
                         alt="People Icon"
                         className="w-8 order-last md:order-first bg-white rounded-[10px] p-1"
                       />
