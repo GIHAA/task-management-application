@@ -56,7 +56,7 @@ const Sidebar = () => {
               {user && user.user.role === "OWNER" && (
                 <li>
                   <a
-                    href="/home/customer-management"
+                    href="/home/user-management"
                     className="flex  items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   >
                     <img
@@ -66,7 +66,7 @@ const Sidebar = () => {
                     />
 
                     <span className="md:visible invisible ml-3">
-                      Customer Management
+                      User Management
                     </span>
                   </a>
                 </li>

@@ -127,7 +127,7 @@ export default function Page() {
             <div className=" mx-auto max-w-screen-xl px-4 lg:px-2  pt-[50px]">
               <div className="bg-white mt-[10px] dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
               <p className="ml-4 mt-4 self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                Customer Management
+                User Management
               </p>
                 <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                   <div className="w-full md:w-1/2 ">
@@ -193,7 +193,7 @@ export default function Page() {
                           d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
                         />
                       </svg>
-                      Add Customer
+                      Add user
                     </button>
 
                     <button

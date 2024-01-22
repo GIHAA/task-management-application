@@ -1,12 +1,11 @@
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import CustomerService from '../api/userService';
 
 export const PdfGenerator = ( total: number ,  data : any) => {
 
-  const name = "Customer Report";
-  const pdf_title = "Customer Report";
+  const name = "User Report";
+  const pdf_title = "User Report";
   const pdf_email = "info@taskmanager.com";
   const pdf_phone = "+94 11 234 5678";
   const pdf_address = " No 221/B, Peradeniya Road, Kandy";
@@ -41,7 +40,6 @@ export const PdfGenerator = ( total: number ,  data : any) => {
   doc.setFontSize(20);
   doc.text(`Total number of clients : ${total}`, 30, 135);
 
-  // Add table with data
   doc.setTextColor("#999999");
   doc.setFontSize(12);
   doc.setTextColor("#000000");
