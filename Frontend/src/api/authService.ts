@@ -9,13 +9,13 @@ interface signInPayload {
 }
 
 interface signUpPayload {
-    id:string
     firstName: string,
     lastName:string,
     email:string,
     phoneNumber:string,
     gender:string,
     dob:string,
+    password:string
 }
 
 const signIn = async (payload:signInPayload) =>{
@@ -25,7 +25,7 @@ const signIn = async (payload:signInPayload) =>{
 
 const signUp = async (payload:signUpPayload) =>{
     const response = await axios.post(`${BE_URL}/auth/signup`, payload);
-    return response.data.results;
+    return response;
 }
 
 const logout = () => {

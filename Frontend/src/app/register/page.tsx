@@ -47,8 +47,6 @@ export default function Register() {
       const genderError = inputValidator("Gender", gender.value);
       const passwordError = passwordValidator(password.value);
 
-      console.log("rrrrrrrrrrrrrr")
-
       if (
         emailError ||
         firstNameError ||
@@ -68,7 +66,7 @@ export default function Register() {
         setPassword({ ...password, error: passwordError });
         throw new Error("Validation error");
       }
-      console.log("rrrrrrrrrrrrrr")
+
       const response = await AuthService.signUp({
         firstName: firstName.value,
         lastName: lastName.value,
@@ -79,9 +77,8 @@ export default function Register() {
         password: password.value,
       });
 
-      console.log(response)
         const user = response.data.results[0];
-        console.log(user)
+ 
         localStorage.setItem("user", JSON.stringify(user));
 
         router.push("/home");
