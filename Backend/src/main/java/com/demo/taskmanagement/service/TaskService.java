@@ -12,5 +12,6 @@ public interface TaskService {
     ResponseEntityDto deleteTask(String id);
     ResponseEntityDto editTask(TaskEditDto task);
     ResponseEntityDto searchTasks(String searchField, String searchTerm, int page, int size);
+    ResponseEntityDto searchMyTasks(String searchField, String searchTerm, int page, int size);
 
 }

@@ -29,6 +29,11 @@ const createTask = async (payload: TaskCreatePayload, token: string) => {
 }
 
 const getAllTasks = async (page: number = 0, size: number = 10, token: string) => {
+    const response = await axios.get(`${BE_URL}/task/all?page=${page}&size=${size}`, axiosWithToken(token));
+    return response;
+}
+
+const getMyTasks = async (page: number = 0, size: number = 10, token: string) => {
     const response = await axios.get(`${BE_URL}/task?page=${page}&size=${size}`, axiosWithToken(token));
     return response;
 }
@@ -54,6 +59,7 @@ const TaskService = {
     updateTask,
     deleteTask,
     searchTasks,
+    getMyTasks
 };
 
 export default TaskService;

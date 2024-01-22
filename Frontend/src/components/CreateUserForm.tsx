@@ -1,3 +1,4 @@
+import { passwordValidator } from "@/helpers/passWordValidator"
 import React, { useState, useEffect } from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
@@ -18,6 +19,7 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
   const [gender, setGender] = useState({ value: "", error: "" })
   const [dob, setdob] = useState({ value: "" , error: "" })
   const [role, setRole] = useState({ value: "" , error: "" })
+  const [password, setPassword] = useState({ value: "" , error: "" })
 
   const getuser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
   const user = getuser ? JSON.parse(getuser) : null;
@@ -31,8 +33,10 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
     const phoneNumberError = inputValidator( "Phone Number ", phoneNumber.value)
     const genderError = inputValidator( "Gender" , gender.value)
     const roleError = inputValidator( "Role" , role.value)
+    const passwordError = passwordValidator( password.value)
 
-    if (roleError || emailError || firstNameError || lastNameError || phoneNumber.error || phoneNumberError || dobError || genderError) {
+
+    if (roleError || emailError || firstNameError || lastNameError || phoneNumber.error || phoneNumberError || dobError || genderError || passwordError) {
       setfirstName({ ...firstName, error: firstNameError })
       setlastName({ ...lastName, error: lastNameError })
       setemail({ ...email, error: emailError })
@@ -40,6 +44,7 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
       setphoneNumber({ ...phoneNumber, error: phoneNumberError })
       setGender({ ...gender, error : genderError})
       setRole({ ...role, error : roleError})
+      setPassword({ ...password, error : passwordError})
       return
     }
    
@@ -51,7 +56,8 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
       phoneNumber: phoneNumber.value,
       gender: gender.value,
       dob: dob.value,
-      role: role.value
+      role: role.value,
+      password: password.value
     }, user.token).then((res) => {
       toast.success("User added successfully")
       fetchData()
@@ -162,6 +168,34 @@ const CreateUserForm = ({setDisplayCreateFrom , fetchData } : any) => {
                     } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
                     placeholder="Type item name"
                     onChange={(e) => setemail({ ...email, value: e.target.value })}
+                  />
+                </div>
+
+
+                <div className="md:col-span-2 col-span-2">
+                  <label
+                    htmlFor="itemName"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Password{" "}
+                    {password.error ? (
+                      <span className="text-red-500 text-[13px]">
+                        {" "}
+                        {password.error}
+                      </span>
+                    ) : (
+                      <></>
+                    )}
+                  </label>
+                  <input
+                    type="text"
+                    name="itemName"
+                    id="itemName"
+                    className={`bg-gray-50 border ${
+                      password.error ? "outline-red-500 outline outline-1" : ""
+                    } border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500`}
+                    placeholder="Type item name"
+                    onChange={(e) => setPassword({ ...password, value: e.target.value })}
                   />
                 </div>
 

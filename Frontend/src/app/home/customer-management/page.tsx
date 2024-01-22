@@ -10,7 +10,7 @@ import { PdfGenerator } from "@/utils/pdfGenerator";
 import { toast } from "sonner";
 // import {toast, ToastContent} from 'react-toastify';
 
-export default function Home() {
+export default function Page() {
   const [displayCreateFrom, setDisplayCreateFrom] = useState(false);
   const [displayUpdateFrom, setDisplayUpdateForm] = useState(false);
   const [data, setData] = useState([]);

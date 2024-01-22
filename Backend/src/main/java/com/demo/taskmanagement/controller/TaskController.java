@@ -49,7 +49,7 @@ public class TaskController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search/all")
     public ResponseEntity<ResponseEntityDto> searchTasks(
             @RequestParam String searchField,
             @RequestParam String searchTerm,
@@ -58,6 +58,17 @@ public class TaskController {
         ResponseEntityDto response = taskService.searchTasks(searchField ,searchTerm, page, size);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<ResponseEntityDto> searchMYTasks(
+            @RequestParam String searchField,
+            @RequestParam String searchTerm,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        ResponseEntityDto response = taskService.searchMyTasks(searchField ,searchTerm, page, size);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PutMapping
     public ResponseEntity<ResponseEntityDto> updateTask(@RequestBody TaskEditDto taskEditDto) {
         ResponseEntityDto response = taskService.editTask(taskEditDto);

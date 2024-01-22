@@ -1,5 +1,6 @@
 package com.demo.taskmanagement.service.impl;
 
+import com.demo.taskmanagement.exception.ModuleException;
 import com.demo.taskmanagement.payload.common.ResponseEntityDto;
 import com.demo.taskmanagement.payload.dto.*;
 import com.demo.taskmanagement.repository.UserDao;
@@ -17,8 +18,10 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.Locale;
+import java.util.Optional;
+import java.util.UUID;
 
-import static com.demo.taskmanagement.common.ModuleConstants.AppErrorMessages.USER_LOGIN_FAILED;
+import static com.demo.taskmanagement.common.ModuleConstants.AppErrorMessages.*;
 
 @Slf4j
 @Service
@@ -80,5 +83,69 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         JwtAuthenticationResponse jwtAuthenticationResponse =  JwtAuthenticationResponse.builder().user(userResponseDto).token(jwt).build();
 
         return new ResponseEntityDto(false, jwtAuthenticationResponse);
+    }
+
+    @Override
+    public ResponseEntityDto signupAdmin(UserCreateDto userCreateDto) {
+        Optional<User> checkUser = userDao.findUserByEmail(userCreateDto.getEmail());
+
+        if(checkUser.isPresent()){
+            throw new ModuleException(String.format(messageSource.getMessage(EMAIL_ALREADY_IN_USE , null, Locale.ENGLISH),
+                    userCreateDto.getEmail()));
+        }
+        if (    userCreateDto.getFirstName() == null ||
+                userCreateDto.getLastName() == null ||
+                userCreateDto.getEmail() == null ||
+                userCreateDto.getPhoneNumber() == null ||
+                userCreateDto.getGender() == null ||
+                userCreateDto.getDob() == null ||
+                userCreateDto.getRole() == null ||
+                userCreateDto.getPassword() == null
+        ) {
+            throw new ModuleException(String.format(messageSource.getMessage(REQUEST_BODY_IS_MISSING_PAYLOAD , null, Locale.ENGLISH)));
+        }
+
+
+        String timestamp = String.valueOf(System.currentTimeMillis()).toString().substring(0,4);
+        String uuid = UUID.randomUUID().toString().substring(0, 5);
+        String id = String.format("%s-%s", timestamp, uuid);
+
+        switch (userCreateDto.getGender()){
+            case MALE:
+                id = "M-"+id;
+                break;
+            case FEMALE:
+                id = "F-"+id;
+                break;
+            case NOT_SPECIFIED:
+                id = "N-"+id;
+                break;
+            case NON_BINARY:
+                id = "NB-"+id;
+                break;
+            case PREFER_NOT_TO_SAY:
+                id = "P-"+id;
+                break;
+            case OTHER:
+                id = "O-"+id;
+                break;
+            default:
+                System.out.println("Invalid gender");
+        }
+
+        var user = User
+                .builder()
+                .id(id)
+                .firstName(userCreateDto.getFirstName())
+                .lastName(userCreateDto.getLastName())
+                .email(userCreateDto.getEmail())
+                .phoneNumber(userCreateDto.getPhoneNumber())
+                .gender(userCreateDto.getGender())
+                .dob(userCreateDto.getDob())
+                .password(passwordEncoder.encode(userCreateDto.getPassword()))
+                .role(userCreateDto.getRole()).build();
+        userDao.save(user);
+
+        return new ResponseEntityDto(false, user);
     }
 }

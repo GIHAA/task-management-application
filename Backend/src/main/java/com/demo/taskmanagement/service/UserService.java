@@ -13,8 +13,5 @@ public interface UserService {
     ResponseEntityDto deleteUser(String id);
     ResponseEntityDto editUser(UserEditDto user);
     ResponseEntityDto searchUsers(String searchField, String searchTerm, int page, int size);
-    UserDetailsService userDetailsService();
-    User getCurrentUser();
-    ResponseEntityDto getMe();
 
 }

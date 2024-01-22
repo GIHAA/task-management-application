@@ -2,7 +2,6 @@ package com.demo.taskmanagement.service.impl;
 
 
 import com.demo.taskmanagement.common.types.Role;
-import com.demo.taskmanagement.common.types.Status;
 import com.demo.taskmanagement.exception.ModuleException;
 import com.demo.taskmanagement.model.Task;
 import com.demo.taskmanagement.model.User;
@@ -11,7 +10,7 @@ import com.demo.taskmanagement.payload.dto.TaskCreateDto;
 import com.demo.taskmanagement.payload.dto.TaskEditDto;
 import com.demo.taskmanagement.repository.TaskDao;
 import com.demo.taskmanagement.service.TaskService;
-import com.demo.taskmanagement.service.UserService;
+import com.demo.taskmanagement.service.UserDetailsProvidor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -33,7 +32,7 @@ public class TaskServiceImpl implements TaskService {
     @NonNull
     private MessageSource messageSource;
     @NonNull
-    private UserService userService;
+    private UserDetailsProvidor userDetailsProvidor;
 
     @Override
     public ResponseEntityDto createTask(TaskCreateDto taskCreateDto) {
@@ -44,7 +43,7 @@ public class TaskServiceImpl implements TaskService {
             throw new ModuleException(String.format(messageSource.getMessage(REQUEST_BODY_IS_MISSING_PAYLOAD , null, Locale.ENGLISH)));
         }
 
-        User user = userService.getCurrentUser();
+        User user = userDetailsProvidor.getCurrentUser();
 
         Task task = Task.builder().name(taskCreateDto.getName()).description(taskCreateDto.getDescription()).owner(user).created_at(new Date()).priority(taskCreateDto.getPriority()).status(taskCreateDto.getStatus()).build();
 
@@ -55,7 +54,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public ResponseEntityDto getTasks(int page, int size) {
-        User user = userService.getCurrentUser();
+        User user = userDetailsProvidor.getCurrentUser();
 
         if(user.getRole().equals(Role.REGULAR_USER)){
             throw new ModuleException(String.format(messageSource.getMessage(USER_ACCESS_DENIED, null, Locale.ENGLISH)));
@@ -69,7 +68,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public ResponseEntityDto getMyTasks(int page, int size) {
-        User user = userService.getCurrentUser();
+        User user = userDetailsProvidor.getCurrentUser();
 
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Task> taskPage = taskDao.findByOwner(user, pageRequest);
@@ -149,5 +148,29 @@ public class TaskServiceImpl implements TaskService {
 
         return new ResponseEntityDto(false, searchResults);
     }
+
+    @Override
+    public ResponseEntityDto searchMyTasks(String searchField, String searchTerm, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        User user = userDetailsProvidor.getCurrentUser();
+        Page<Task> searchResults = null;
+        switch (searchField.toUpperCase()) {
+            case "BOTH":
+                searchResults = taskDao.findByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCaseAndOwner(searchTerm, searchTerm , user , pageRequest);
+                break;
+            case "NAME":
+                searchResults = taskDao.findByNameContainingIgnoreCaseAndOwner(searchTerm , user ,  pageRequest);
+                break;
+            case "DESCRIPTION":
+                searchResults = taskDao.findByDescriptionContainingIgnoreCaseAndOwner(searchTerm , user ,  pageRequest);
+                break;
+            default:
+                searchResults = taskDao.findByNameContainingIgnoreCaseAndDescriptionContainingIgnoreCaseAndOwner(searchTerm, searchTerm, user,  pageRequest);
+                break;
+        }
+
+        return new ResponseEntityDto(false, searchResults);
+    }
+
 
 }

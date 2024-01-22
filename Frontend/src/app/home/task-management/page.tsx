@@ -9,11 +9,12 @@ import { toast } from "sonner";
 import TaskService from "@/api/taskService";
 import EditTaskForm from "@/components/EditTaskForm";
 import CreateTaskForm from "@/components/CreateTaskForm";
-// import {toast, ToastContent} from 'react-toastify';
+import ShowTask from "@/components/ShowTask";
 
-export default function Home() {
+export default function Page() {
   const [displayCreateFrom, setDisplayCreateFrom] = useState(false);
   const [displayUpdateFrom, setDisplayUpdateForm] = useState(false);
+  const [showTask, setShowTask] = useState(false);
   const [data, setData] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
@@ -26,9 +27,9 @@ export default function Home() {
   const [totalElements, setTotalElements] = useState(0);
   const [searchType, setSearchType] = useState("NAME" as string);
 
-  const getuser = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  const getuser =
+    typeof window !== "undefined" ? localStorage.getItem("user") : null;
   const user = getuser ? JSON.parse(getuser) : null;
-
 
   const toggleDropdown = (itemId: any) => {
     setShowDropdown(!showDropdown);
@@ -74,17 +75,17 @@ export default function Home() {
       });
   };
 
-  const handleDelete = async (cus: any) => {
-    toast(`Are sure you want to remove ${cus.firstName}`, {
+  const handleDelete = async (task: any) => {
+    toast(`Are sure you want to remove ${task.name}`, {
       action: {
         label: "Remove",
         onClick: async () => {
-          const response = await TaskService.deleteTask(cus.id, user.token);
+          const response = await TaskService.deleteTask(task.id, user.token);
 
           if (response.status === 204) {
-            toast.success(`${cus.firstName} removed successfully`);
+            toast.success(`${task.name} removed successfully`);
             setData((prevItems) =>
-              prevItems.filter((data: any) => data.id !== cus.id)
+              prevItems.filter((data: any) => data.id !== task.id)
             );
           } else {
             toast.error("Removing failed");
@@ -160,7 +161,9 @@ export default function Home() {
                         }}
                       >
                         <option value="NAME">Search by Name</option>
-                        <option value="EMAIL">Search by Email</option>
+                        <option value="Description">
+                          Search by Description
+                        </option>
                         <option value="BOTH">Search by Both</option>
                       </select>
                     </form>
@@ -254,12 +257,25 @@ export default function Home() {
                                   </td>
 
                                   <td className="px-4 py-3">
-                                    {item.owner.firstName} {item.owner.lastName}
+                                    {item.owner
+                                      ? `${item.owner.firstName} ${item.owner.lastName}`
+                                      : "Unavailable"}
                                   </td>
+
                                   <td className="px-4 py-3">
                                     {new Date(item.created_at).toLocaleString()}
                                   </td>
-                                  <td className="px-4 py-3">{item.priority}</td>
+                                  <td
+                                    className={`px-4 py-3 ${
+                                      item.priority === "HIGH"
+                                        ? "text-red-500"
+                                        : item.priority === "MEDIUM"
+                                        ? "text-yellow-500"
+                                        : "text-green-500"
+                                    }`}
+                                  >
+                                    {item.priority}
+                                  </td>
                                   <td className="px-4 py-3">{item.status}</td>
 
                                   <td className="px-4 py-3 flex items-center justify-end relative">
@@ -289,6 +305,20 @@ export default function Home() {
                                             className="py-1 text-sm text-gray-700 dark:text-gray-200"
                                             aria-labelledby={`dropdown-button-${item.id}`}
                                           >
+                                            <li>
+                                              <a
+                                                href="#"
+                                                onClick={() => {
+                                                  setShowTask(true);
+                                                  setTarget(item);
+                                                  toggleDropdown(item.id);
+                                                }}
+                                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                              >
+                                                Show
+                                              </a>
+                                            </li>
+
                                             <li>
                                               <a
                                                 href="#"
@@ -396,6 +426,15 @@ export default function Home() {
           </section>
         </div>
       </div>
+
+      {showTask && (
+        <ShowTask
+        setShowTask={setShowTask}
+          fetchData={fetchData}
+          target={target}
+        />
+      )}
+
 
       {displayUpdateFrom && (
         <EditTaskForm

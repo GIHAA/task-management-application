@@ -9,6 +9,7 @@ interface UserCreatePayload {
     gender: string,
     dob: string,
     role: string,
+    password: string,
 }
 
 interface UserUpdatePayload {
@@ -19,6 +20,7 @@ interface UserUpdatePayload {
     phoneNumber: string,
     gender: string,
     dob: string,
+    password: string
 }
 
 const axiosWithToken = (token: string): AxiosRequestConfig => ({

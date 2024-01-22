@@ -1,6 +1,7 @@
 package com.demo.taskmanagement.config;
 
 import com.demo.taskmanagement.filter.JwtAuthenticationFilter;
+import com.demo.taskmanagement.service.UserDetailsProvidor;
 import com.demo.taskmanagement.service.UserService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final UserService userService;
+    private final UserDetailsProvidor userDetailsProvidor;
 
     @NonNull
     private final AuthEntryPointJwt unauthorizedHandler;
@@ -33,7 +34,7 @@ public class SecurityConfiguration {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userService.userDetailsService());
+        authProvider.setUserDetailsService(userDetailsProvidor.userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }

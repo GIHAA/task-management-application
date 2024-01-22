@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -33,6 +30,9 @@ public class UserServiceImpl implements UserService {
     @NonNull
     private MessageSource messageSource;
 
+    @NonNull
+    private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public ResponseEntityDto createUser(UserCreateDto userCreateDto) {
@@ -48,12 +48,16 @@ public class UserServiceImpl implements UserService {
                 userCreateDto.getEmail() == null ||
                 userCreateDto.getPhoneNumber() == null ||
                 userCreateDto.getGender() == null ||
-                userCreateDto.getDob() == null) {
+                userCreateDto.getDob() == null ||
+                userCreateDto.getRole() == null ||
+                userCreateDto.getPassword() == null
+        ) {
             throw new ModuleException(String.format(messageSource.getMessage(REQUEST_BODY_IS_MISSING_PAYLOAD , null, Locale.ENGLISH)));
         }
 
 
         User user = userCreateDtoToUser(userCreateDto);
+        user.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
         String timestamp = String.valueOf(System.currentTimeMillis()).toString().substring(0,4);
         String uuid = UUID.randomUUID().toString().substring(0, 5);
 
@@ -177,22 +181,22 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public UserDetailsService userDetailsService() {
-        return username -> (UserDetails) userDao.findUserByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(messageSource.getMessage(USER_NOT_FOUND, null, Locale.ENGLISH)));
-    }
-
-    @Override
-    public User getCurrentUser() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return (User) userDetails;
-    }
-
-    @Override
-    public ResponseEntityDto getMe() {
-        return new ResponseEntityDto(false, this.getCurrentUser());
-    }
+//    @Override
+//    public UserDetailsProvidor userDetailsService() {
+//        return username -> (UserDetailsProvidor) userDao.findUserByEmail(username)
+//                .orElseThrow(() -> new UsernameNotFoundException(messageSource.getMessage(USER_NOT_FOUND, null, Locale.ENGLISH)));
+//    }
+//
+//    @Override
+//    public User getCurrentUser() {
+//        UserDetailsProvidor UserDetailsProvidor = (UserDetailsProvidor) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        return (User) UserDetailsProvidor;
+//    }
+//
+//    @Override
+//    public ResponseEntityDto getMe() {
+//        return new ResponseEntityDto(false, this.getCurrentUser());
+//    }
 
     public User userCreateDtoToUser(UserCreateDto userCreateDto) {
         User user = new User();
@@ -205,11 +209,7 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userCreateDto.getPhoneNumber());
         user.setPassword(userCreateDto.getPassword());
         user.setRole(userCreateDto.getRole());
-
         return user;
     }
-
-
-
 
 }
