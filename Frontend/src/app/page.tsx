@@ -4,14 +4,12 @@ import AuthService from "@/api/authService";
 import { emailValidator } from "@/helpers/emailValidator";
 import { passwordValidator } from "@/helpers/passWordValidator";
 import bg from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast, Toaster } from "sonner";
 
-
-// Define the Home component
-export default function Home() {
-
+export default function Login() {
   const router = useRouter();
 
   const [email, setEmail] = useState({ value: "", error: "" });
@@ -19,14 +17,13 @@ export default function Home() {
 
   const signInUser = async () => {
     try {
-
       const emailError = emailValidator(email.value);
       const passwordError = passwordValidator(password.value);
 
       if (emailError || passwordError) {
         setEmail({ ...email, error: emailError });
         setPassword({ ...password, error: passwordError });
-        throw new Error('Validation error');
+        throw new Error("Validation error");
       }
 
       const response = await AuthService.signIn({
@@ -40,7 +37,7 @@ export default function Home() {
 
         router.push("/home");
       }
-    } catch (error:any) {
+    } catch (error: any) {
       const message =
         (error.response &&
           error.response.data &&
@@ -54,20 +51,16 @@ export default function Home() {
   };
 
   const signInWithToast = () => {
-    toast.promise(
-      signInUser,
-      {
-        loading: 'Loading...',
-        success: (data) => {
-          return `User logged in successfully`;
-        },
-        error: (error) => {
-          return  'User logging failed';
-        },
-      }
-    );
+    toast.promise(signInUser, {
+      loading: "Loading...",
+      success: (data) => {
+        return `User logged in successfully`;
+      },
+      error: (error) => {
+        return "User logging failed";
+      },
+    });
   };
-
   return (
     <div
       className="overlay bg-cover bg-gray-50 dark:bg-gray-900"
@@ -136,17 +129,28 @@ export default function Home() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark-bg-gray-700 dark-border-gray-600 dark-placeholder-gray-400 dark-text-white dark-focus-ring-blue-500 dark-focus-border-blue-500"
                 />
               </div>
-              <button
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                onClick={signInWithToast}
-              >
-                Sign in
-              </button>
+              <p className="text-[14px] mt-[15px] text-gray-500">
+                Don't have an account?
+                <a href="/register" className="ml-1">
+                  <span className="text-secondary font-[20px]">Register now</span>
+                </a>
+              </p>
+  
+              <div className="flex justify-end">
+                <button
+                  className="block text-sm font-medium text-gray-900 dark:text-white bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 focus:border-primary-700 rounded-lg p-2.5"
+                  onClick={signInWithToast}
+                >
+                  Sign in
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <Toaster />
+      <Toaster closeButton richColors position="top-right" />
     </div>
   );
+  
+
 }

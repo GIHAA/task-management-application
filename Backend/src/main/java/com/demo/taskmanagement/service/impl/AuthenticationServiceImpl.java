@@ -1,5 +1,6 @@
 package com.demo.taskmanagement.service.impl;
 
+import com.demo.taskmanagement.common.types.Role;
 import com.demo.taskmanagement.exception.ModuleException;
 import com.demo.taskmanagement.payload.common.ResponseEntityDto;
 import com.demo.taskmanagement.payload.dto.*;
@@ -55,7 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .gender(request.getGender())
                 .dob(request.getDob())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole()).build();
+                .role(Role.REGULAR_USER).build();
         userDao.save(user);
 
         var jwt = jwtService.generateToken(user);
@@ -99,7 +100,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 userCreateDto.getPhoneNumber() == null ||
                 userCreateDto.getGender() == null ||
                 userCreateDto.getDob() == null ||
-                userCreateDto.getRole() == null ||
                 userCreateDto.getPassword() == null
         ) {
             throw new ModuleException(String.format(messageSource.getMessage(REQUEST_BODY_IS_MISSING_PAYLOAD , null, Locale.ENGLISH)));
