@@ -35,6 +35,8 @@ export default function Page() {
     setShowDropdown(!showDropdown);
     setSelectedItemId(itemId);
   };
+  
+
 
   const fetchData = async () => {
     setLoading(true);
@@ -65,15 +67,7 @@ export default function Page() {
     fetchData();
   }, [currentPage]);
 
-  const exportPdf = () => {
-    TaskService.getAllTasks(0, totalElements, user.token)
-      .then((res) => {
-        PdfGenerator(totalElements, res.data.results[0].content);
-      })
-      .catch(() => {
-        toast.error("Report genaration failed");
-      });
-  };
+
 
   const handleDelete = async (task: any) => {
     toast(`Are sure you want to remove ${task.name}`, {
@@ -121,9 +115,16 @@ export default function Page() {
       <div className=" md:ml-64 h-auto ml-[75px] ">
         <div className=" rounded-lg  dark:border-gray-600 h-screen ">
           <section className="bg-gray-50 dark:bg-gray-900 sm:h-auto md:h-auto lg:h-auto xl:h-screen  p-3 sm:p-5">
+           
             <div className=" mx-auto max-w-screen-xl px-4 lg:px-2  pt-[50px]">
               <div className="bg-white mt-[10px] dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+              <p className="ml-4 mt-4 self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                Admin Task Management
+              </p>
+
                 <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+   
+   
                   <div className="w-full md:w-1/2 ">
                     <form className="flex items-center">
                       <label className="sr-only">Search</label>
