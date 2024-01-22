@@ -38,7 +38,7 @@ export const PdfGenerator = ( total: number ,  data : any) => {
   doc.setTextColor("#000000");
 
   doc.setFontSize(20);
-  doc.text(`Total number of clients : ${total}`, 30, 135);
+  doc.text(`Total number of Users : ${total}`, 30, 135);
 
   doc.setTextColor("#999999");
   doc.setFontSize(12);

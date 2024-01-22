@@ -57,7 +57,7 @@ export default function Login() {
         return `User logged in successfully`;
       },
       error: (error) => {
-        return "User logging failed";
+        return "Authentication failed! Try again.";
       },
     });
   };

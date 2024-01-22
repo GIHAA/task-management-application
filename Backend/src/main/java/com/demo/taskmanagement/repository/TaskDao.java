@@ -19,6 +19,7 @@ public interface TaskDao extends MongoRepository <Task, String> {
 
     Page<Task> findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(
             String name, String description, Pageable pageable);
+            
     Page<Task> findByNameContainingIgnoreCaseAndOwner(String name, User owner, Pageable pageable);
     Page<Task> findByDescriptionContainingIgnoreCaseAndOwner(String description, User owner, Pageable pageable);
 
