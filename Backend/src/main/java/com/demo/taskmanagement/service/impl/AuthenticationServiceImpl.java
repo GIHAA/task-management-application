@@ -47,8 +47,38 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public ResponseEntityDto signup(SignupRequest request) {
+
+        String timestamp = String.valueOf(System.currentTimeMillis()).toString().substring(0,4);
+        String uuid = UUID.randomUUID().toString().substring(0, 5);
+
+        String id = String.format("%s-%s", timestamp, uuid);
+
+        switch (request.getGender()){
+            case MALE:
+                id = "M-"+id;
+                break;
+            case FEMALE:
+                id = "F-"+id;
+                break;
+            case NOT_SPECIFIED:
+                id = "N-"+id;
+                break;
+            case NON_BINARY:
+                id = "NB-"+id;
+                break;
+            case PREFER_NOT_TO_SAY:
+                id = "P-"+id;
+                break;
+            case OTHER:
+                id = "O-"+id;
+                break;
+            default:
+                System.out.println("Invalid gender");
+        }
+
         var user = User
                 .builder()
+                .id(id)
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())

@@ -84,7 +84,7 @@ const ShowTask = ({ setShowTask, fetchData, target }: any) => {
                     setShowTask(false);
                   }}
                 >
-                  Cancel
+                  Close
                 </button>
               </div>
             </div>

@@ -25,8 +25,8 @@ const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
       id: target.id,
     }
 
-    const NameError = inputValidator("First Name", name.value);
-    const DescriptionError = inputValidator("Last Name", description.value);
+    const NameError = inputValidator("Name", name.value);
+    const DescriptionError = inputValidator("Description", description.value);
     const PriorityError = inputValidator("Priority", priority.value);
     const StatusError = inputValidator("Status", status.value);
 
@@ -61,7 +61,7 @@ const EditUserForm = ({ setDisplayUpdateForm, fetchData, target }: any) => {
     if (Object.keys(updatedFields).length > 1) {
       try {
         const res = await TaskService.updateTask(updatedFields , user.token)
-        toast.success("User successfully updated")
+        toast.success("Task successfully updated")
         fetchData()
         setDisplayUpdateForm(false)
       } catch (err) {
