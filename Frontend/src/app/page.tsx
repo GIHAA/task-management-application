@@ -1,12 +1,13 @@
 // Import necessary modules and dependencies
 "use client";
 import AuthService from "@/api/authService";
+import healthService from "@/api/heathService";
 import { emailValidator } from "@/helpers/emailValidator";
 import { passwordValidator } from "@/helpers/passWordValidator";
 import bg from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
 
 export default function Login() {
@@ -61,6 +62,12 @@ export default function Login() {
       },
     });
   };
+
+  useEffect(() => {
+    healthService.healthCheck();
+  }, []);
+
+  
   return (
     <div
       className="overlay bg-cover bg-gray-50 dark:bg-gray-900"
