@@ -12,8 +12,9 @@ To set up the application locally, follow these steps:
 2. Open IntelliJ IDEA, navigate to the backend folder, and run the Spring Boot application.
 3. I've set the default port to be 80 (`http://localhost/`), and other configurations like the database URL are intentionally exposed for easy local setup.
 4. Verify the application's health by checking `http://localhost/api/v1/health`.
-5. Change directory to the frontend and run `npm install` to install node modules.
-6. Optionally, modify the API URL to use either the online backend or a local backend by commenting/uncommenting lines in `src/api/api.ts`:
+5. Furthermore, for an alternative deployment option, you have the flexibility to run the application through Docker. Simply build and run the Docker image located in the backend folder
+6. Change directory to the frontend and run `npm install` to install node modules.
+7. Optionally, modify the API URL to use either the online backend or a local backend by commenting/uncommenting lines in `src/api/api.ts`:
    ```typescript
    //export const BE_URL = "http://localhost/api/v1";
    export const BE_URL = "https://task-manager-app.azurewebsites.net/api/v1";
