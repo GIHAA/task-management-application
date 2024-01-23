@@ -1,6 +1,7 @@
 package com.demo.taskmanagement.service.impl;
 
 
+import com.demo.taskmanagement.common.types.Role;
 import com.demo.taskmanagement.exception.ModuleException;
 import com.demo.taskmanagement.model.User;
 import com.demo.taskmanagement.payload.common.ResponseEntityDto;
@@ -150,12 +151,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntityDto deleteUser(String id) {
-        User userToDelete = userDao.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + id));
 
-        userDao.delete(userToDelete);
 
-        return new ResponseEntityDto(false, userToDelete);
+        Optional<User> existingUser = userDao.findById(id);
+
+        if(existingUser.isEmpty()){
+            throw new ModuleException(String.format(messageSource.getMessage(USER_NOT_FOUND, null, Locale.ENGLISH),
+                    id));
+        }
+
+        if(existingUser.get().getRole().equals(Role.OWNER)){
+            throw new ModuleException(String.format(messageSource.getMessage(USER_ACCESS_DENIED, null, Locale.ENGLISH)));
+        }
+
+        userDao.delete(existingUser.get());
+
+        return new ResponseEntityDto(false, existingUser.get());
     }
 
     @Override
