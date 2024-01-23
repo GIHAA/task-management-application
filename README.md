@@ -29,4 +29,7 @@ Now, you're ready to use the Task Management Application locally.
 
 ![Group 45](https://github.com/GIHAA/task-management-application/assets/86099252/e63116c0-595a-449a-a69e-a99e8431e456)
 
-![Group 44](https://github.com/GIHAA/task-management-application/assets/86099252/9ee51ea3-fa3f-48da-94a7-d279da3e1925)
+![Group 44](https://github.com/GIHAA/task-management-application/assets/86099252/7af2878e-98df-4fca-b787-53190f79a381)
+
+
+
