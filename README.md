@@ -10,10 +10,16 @@
 To set up the application locally, follow these steps:
 
 1. Clone the repository.
-2. open idea then open backend folder and run the springboot application
-3. I have set default port to be 80 , ```http://localhost/``` and other configaration such as db url is exposed intentionally for easy local setup
-4. cd to frontend and type npm install to install node moduels
-5. then npm run dev to run the application
-6. open ```http://localhost:3000/``` to see the application
+2. Open IntelliJ IDEA, navigate to the backend folder, and run the Spring Boot application.
+3. I've set the default port to be 80 (`http://localhost/`), and other configurations like the database URL are intentionally exposed for easy local setup.
+4. Verify the application's health by checking `http://localhost/api/v1/health`.
+5. Change directory to the frontend and run `npm install` to install node modules.
+6. Optionally, modify the API URL to use either the online backend or a local backend by commenting/uncommenting lines in `src/api/api.ts`:
+   ```typescript
+   //export const BE_URL = "http://localhost/api/v1";
+   export const BE_URL = "https://task-manager-app.azurewebsites.net/api/v1";
+
+8. Execute `npm run dev` to start the application.
+9. Open `http://localhost:3000/` to access the application.
 
 Now, you're ready to use the Task Management Application locally.
