@@ -3,7 +3,7 @@
 
 ## Live deployment
 - **Frontend:** : https://task-management-application-pearl.vercel.app/
-- **Backend:**  : https://task-manager-app.azurewebsites.net/api/v1
+- **Backend:**  : https://task-manager-app.azurewebsites.net/api/v1/health
 
 ## Tech Stack
 - **Frontend:** NEXT.js
