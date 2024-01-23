@@ -1,6 +1,5 @@
 # Task Management Application
-
-![Application Screenshot](https://github.com/GIHAA/task-management-application/assets/86099252/af6a08cf-2e00-4b1b-843b-ec58f4375528)
+![Group 47](https://github.com/GIHAA/task-management-application/assets/86099252/320834c3-9cbf-4003-b859-f8097be3ff5d)
 
 ## Tech Stack
 - **Frontend:** NEXT.js
