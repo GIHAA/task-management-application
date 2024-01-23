@@ -23,3 +23,10 @@ To set up the application locally, follow these steps:
 9. Open `http://localhost:3000/` to access the application.
 
 Now, you're ready to use the Task Management Application locally.
+
+## Features
+![Group 46](https://github.com/GIHAA/task-management-application/assets/86099252/7844616b-22c7-4559-930e-f4c5c3ea7115)
+
+![Group 45](https://github.com/GIHAA/task-management-application/assets/86099252/e63116c0-595a-449a-a69e-a99e8431e456)
+
+![Group 44](https://github.com/GIHAA/task-management-application/assets/86099252/9ee51ea3-fa3f-48da-94a7-d279da3e1925)
