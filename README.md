@@ -12,14 +12,15 @@ To set up the application locally, follow these steps:
 2. Open IntelliJ IDEA, navigate to the backend folder, and run the Spring Boot application.
 3. I've set the default port to be 80 (`http://localhost/`), and other configurations like the database URL are intentionally exposed for easy local setup.
 4. Verify the application's health by checking `http://localhost/api/v1/health`.
-5. Furthermore, for an alternative deployment option, you have the flexibility to run the application through Docker. Simply build and run the Docker image located in the backend folder
-6. Change directory to the frontend and run `npm install` to install node modules.
-7. Optionally, modify the API URL to use either the online backend or a local backend by commenting/uncommenting lines in `src/api/api.ts`:
+5. Furthermore, for an alternative deployment option, you have the flexibility to run the application through Docker. Simply build and run the Docker image located in the backend folder. or you can use already pushed image in docker hub simplly use this command
+   ``` ```
+7. Change directory to the frontend and run `npm install` to install node modules.
+8. Optionally, modify the API URL to use either the online backend or a local backend by commenting/uncommenting lines in `src/api/api.ts`:
    ```typescript
    //export const BE_URL = "http://localhost/api/v1";
    export const BE_URL = "https://task-manager-app.azurewebsites.net/api/v1";
 
-8. Regarding the initial login request from the backend, it might take around 1 - 2 minute to complete. This delay is due to my current use of free hosting options, which tend to shut down due to inactivity. It is important to note that this issue is not related to the code quality of the backend. After reactivating from inactivity, the backend should work quickly and without issues. Additionally, the local setup doesn't experience this problem
+9. Regarding the initial login request from the backend, it might take around 1 - 2 minute to complete. This delay is due to my current use of free hosting options, which tend to shut down due to inactivity. It is important to note that this issue is not related to the code quality of the backend. After reactivating from inactivity, the backend should work quickly and without issues. Additionally, the local setup doesn't experience this problem
    ![image](https://github.com/GIHAA/task-management-application/assets/86099252/96551a34-67fe-48eb-8e3f-5da719b55810)
 
 10. Execute `npm run dev` to start the application.
