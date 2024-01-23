@@ -18,8 +18,11 @@ To set up the application locally, follow these steps:
    //export const BE_URL = "http://localhost/api/v1";
    export const BE_URL = "https://task-manager-app.azurewebsites.net/api/v1";
 
-8. Execute `npm run dev` to start the application.
-9. Open `http://localhost:3000/` to access the application.
+8. Regarding the initial login request from the backend, it might take around 1 - 2 minute to complete. This delay is due to my current use of free hosting options, which tend to shut down due to inactivity. It is important to note that this issue is not related to the code quality of the backend. After reactivating from inactivity, the backend should work quickly and without issues. Additionally, the local setup doesn't experience this problem
+   ![image](https://github.com/GIHAA/task-management-application/assets/86099252/96551a34-67fe-48eb-8e3f-5da719b55810)
+
+10. Execute `npm run dev` to start the application.
+11. Open `http://localhost:3000/` to access the application.
 
 Now, you're ready to use the Task Management Application locally.
 
