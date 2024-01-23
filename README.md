@@ -36,7 +36,7 @@ To set up the application locally, follow these steps:
 10. Execute `npm run dev` to start the application.
 11. Open `http://localhost:3000/` to access the application.
 12. Now, you're ready to use the Task Management Application locally.
-12. Example logins feel free to add new users as well
+12. Example logins.. feel free to add new users as well
       |Role| Email | Password |
       |---------|----------|-------------|
       |Owner| owner@gmail.com | Gihan_123 |
