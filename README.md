@@ -1,6 +1,10 @@
 # Task Management Application
 ![Group 47](https://github.com/GIHAA/task-management-application/assets/86099252/320834c3-9cbf-4003-b859-f8097be3ff5d)
 
+## Live deployment
+- **Frontend:** : https://task-management-application-pearl.vercel.app/
+- **Backend:**  : https://task-manager-app.azurewebsites.net/api/v1
+
 ## Tech Stack
 - **Frontend:** NEXT.js
 - **Backend:** Spring Boot
