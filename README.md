@@ -31,8 +31,14 @@ To set up the application locally, follow these steps:
 
 10. Execute `npm run dev` to start the application.
 11. Open `http://localhost:3000/` to access the application.
+12. Now, you're ready to use the Task Management Application locally.
+12. Example logins feel free to add new users as well
+      |Role| Email | Password |
+      |---------|----------|-------------|
+      |Owner| owner@gmail.com | Gihan_123 |
+      |Admin| admin@gmail.com |  Admin_123|
+      |Regular User| pawan@gmail.com|  Pawan_123|
 
-Now, you're ready to use the Task Management Application locally.
 
 ## Features
 ![Group 46](https://github.com/GIHAA/task-management-application/assets/86099252/7844616b-22c7-4559-930e-f4c5c3ea7115)
