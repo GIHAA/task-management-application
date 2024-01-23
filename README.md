@@ -11,10 +11,16 @@ To set up the application locally, follow these steps:
 1. Clone the repository.
 2. Open IntelliJ IDEA, navigate to the backend folder, and run the Spring Boot application.
 3. I've set the default port to be 80 (`http://localhost/`), and other configurations like the database URL are intentionally exposed for easy local setup.
-4. Verify the application's health by checking `http://localhost/api/v1/health`.
-5. Furthermore, for an alternative deployment option, you have the flexibility to run the application through Docker. Simply build and run the Docker image located in the backend folder. or you can use already pushed image in docker hub simplly use this command
-   ``` ```
-7. Change directory to the frontend and run `npm install` to install node modules.
+4. Additionally, for an alternative deployment approach, you can leverage the flexibility of Docker to run the application. To do so, effortlessly build and execute the Docker image found in the `backend` folder. Alternatively, you may opt for an existing image available on Docker Hub by executing the following commands:
+   
+   ```bash
+   docker pull gihaa/taskmanager:latest
+   ```
+   ```bash
+   docker run -d -p 80:80 gihaa/taskmanager:latest
+   ```
+6. Verify the application's health by checking `http://localhost/api/v1/health`.
+7. For the frontend, Change directory to the frontend and run `npm install` to install node modules.
 8. Optionally, modify the API URL to use either the online backend or a local backend by commenting/uncommenting lines in `src/api/api.ts`:
    ```typescript
    //export const BE_URL = "http://localhost/api/v1";
